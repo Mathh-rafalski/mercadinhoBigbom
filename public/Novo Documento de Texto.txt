@@ -1,0 +1,45 @@
+<div class="tarefa container clearfix">
+        <form class="form" id="formulario">
+            <label class="lbl" for="fname">Nome</label><br>
+            <input type="text" id="desc" name="fname" placeholder="Matheus"><br>
+            <label class="lbl" for="lname">Valor</label><br>
+            <input type="currency" id="data" name="lname" placeholder="$1,000,000.00"><br>
+            <button type="button" onclick="enviar()" class="btn btn-light salvar btn-sm butao">Enviar</button>
+        </form>
+    </div>
+        <span class="msg" id="tio">
+            Envio tio
+        </span>
+    function enviar() {
+        let desc = document.getElementById("desc").value
+        let data = document.getElementById("data").value
+        let hora = document.getElementById("hora").value
+        if (data.includes("/")) {
+        data = data.replace("/","-")
+        data = data.replace("/","-")
+        }
+        let vet = data.split("-")
+        data = vet[2] + "-" + vet[1] + "-" + vet[0]
+        let data_hora = data + " " + hora
+        let tarefa = {
+            "descricao": desc,
+            "data_hora": data_hora
+        }
+        console.log(tarefa)
+        enviarPoServer(tarefa)
+    }
+    function enviarPoServer(jsonObj) {
+        console.log('Posting...');
+        fetch('http://localhost:3000/addCompromisso', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonObj)
+        }).then(function (response) {
+            console.log(response)
+            document.getElementById("tio").style.visibility = "visible"
+            //element.style.backgroundColor = "red";
+
+        })
+    }

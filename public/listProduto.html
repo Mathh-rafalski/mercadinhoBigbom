@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Simple Sidebar - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+  <style>
+    .border-right {
+      border-right: 1px solid black !important
+    }
+
+    img {
+      border-radius: 50%;
+    }
+
+    .nome {
+
+      width: 30%;
+      float: left;
+      border: 1px solid black;
+      border-left:1px solid white;
+    }
+
+    .valor {
+      width: 10%;
+      float: left;
+      border: 1px solid black;
+      border-left:1px solid white;
+      text-align:center
+    }
+    .id {
+      width: 10%;
+      float: left;
+      border: 1px solid black;
+      margin-left: 5%;
+    }
+    .home {
+      margin-left: 10%;
+    }
+
+  </style>
+</head>
+
+<body onload='listaTarefa()'>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="image">
+        <img src="rato.png" alt="homem" width="200" height="180">
+      </div>
+      <div class="list-group list-group-flush itens">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Vendas
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Nova venda</a>
+          <a class="dropdown-item" href="#">Lista</a>
+        </div>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Produtos
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="localhost/cad">Novo Produto</a>
+          <a class="dropdown-item" href="#">Lista</a>
+        </div>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid home">
+          <div id='id'class='id'>
+            <span class ='texto'>ID</span>
+            <br>
+            </div>
+        <div id='nome'class="nome">
+            <span class ='texto'>Nome</span>
+            <br>
+        </div>
+        
+      
+      <div id='valor'class='valor'>
+          <span class ='texto tit'>Valor</span>
+          <br>
+      </div>
+    </div>  
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function (e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+    function listaTarefa(){
+      let divId = document.getElementById('id')
+      let divNome = document.getElementById('nome')
+      let divValor = document.getElementById('valor')
+      console.log('Getting...');
+
+        fetch('http://localhost/getProdutos', {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => response.json())
+            .then(data => {
+                console.log(data)
+                data.forEach(element => {
+                  
+                    let nome = element['nome']
+                    let valor = element['valor']
+                    let id = element['id']
+                    console.log(nome)
+                    divId.innerHTML += `<span class="texto">${id}<span><br>`
+                    divNome.innerHTML += `<span class="texto">${nome}<span><br>`
+                    divValor.innerHTML += `<span class="texto">${valor}<span><br>`
+                });
+                /*let a = response.json();
+                console.log()
+                response.json(results).forEach(element => {
+                    let desc = element.get("descricao")
+                    console.log(desc)
+                });
+                */
+                /*Divdesc.innerHTML += `<span>${desc}`*/
+
+                /* e.innerHTML += `<span class="texto">${texto}<span>`*/
+            });
+    }
+  </script>
+
+</body>
+
+</html>
