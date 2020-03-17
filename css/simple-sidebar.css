@@ -62,8 +62,14 @@ body {
   }
   .home {
     text-align: center;
-    margin-top: 50px;
-    font-family:Times;
+    margin-top: 20px;
+}
+a:hover {
+  color:black;
+  background-color: white;
+}
+.bg {
+background-color: #19b7d0
 }
 
 }

@@ -23,6 +23,17 @@
     img {
       border-radius: 50%;
     }
+    a:hover {
+      color:black;
+      background-color: white;
+    }
+    .bg {
+    background-color: #19b7d0
+    }
+    .d-flex {
+      font-family: 'Courier New', Courier, monospace;
+    }
+
   </style>
 </head>
 
@@ -31,7 +42,7 @@
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="border-right bg" id="sidebar-wrapper">
       <div class="sidebar-heading">
         <a href="/">Menu</a>
       </div>
@@ -46,7 +57,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/cadVenda">Nova venda</a>
-          <a class="dropdown-item" href="#">Lista</a>
+          <a class="dropdown-item" href="/listVenda">Lista Venda</a>
         </div>
       </div>
 
@@ -57,8 +68,8 @@
           Produtos
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarProduto">
-          <a class="dropdown-item" href="/cadProduto">Novuto</a>
-          <a class="dropdown-item" href="#">Lista</a>
+          <a class="dropdown-item" href="/cadProduto">Novo Produto</a>
+          <a class="dropdown-item" href="/listProduto">Lista Produto</a>
         </div>
       </div>
     </div>

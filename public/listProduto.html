@@ -26,58 +26,122 @@
 
     .nome {
 
-      width: 30%;
+      width: 40%;
       float: left;
       border: 1px solid black;
-      border-left:1px solid white;
+      border-left: 1px solid white;
     }
 
     .valor {
-      width: 10%;
+      width: 20%;
       float: left;
       border: 1px solid black;
-      border-left:1px solid white;
-      text-align:center
+      border-left: 1px solid white;
+      text-align: center
     }
+
+    .bt {
+      width: 8%;
+      border: 1px solid black;
+      border-left: 1px solid white;
+      float: left;
+    }
+
     .id {
       width: 10%;
       float: left;
       border: 1px solid black;
       margin-left: 5%;
     }
+
     .home {
       margin-left: 10%;
     }
 
+    .bg {
+      background-color: #19b7d0
+    }
+
+    .home {
+
+      border: 2px solid black;
+      height: 82%;
+      width: 60%;
+      margin-top: 6%;
+    }
+
+    .tabela {
+      margin-top: 35px;
+    }
+
+    .titu {
+      font-size: 38px;
+      font-family: 'Courier New', Courier, monospace;
+      float: left;
+      padding-left: 10px;
+      border-bottom: 1px solid black;
+      width: 100%;
+    }
+
+    a:hover {
+      color: black;
+      background-color: white;
+    }
+
+    .d-flex {
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .container-fluid {
+      width: 60%;
+    }
+
+    .val {
+      float: right !important;
+      margin-right: 2px;
+      width: 50%;
+    }
+    .texto {
+      float: left;
+      margin-left: 5%;
+    }
   </style>
 </head>
 
-<body onload='listaTarefa()'>
+<body onload="listaTarefa()">
 
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Menu</div>
+    <div class="border-right bg" id="sidebar-wrapper">
+      <div class="sidebar-heading">
+        <a href="/">Menu</a>
+      </div>
       <div class="image">
         <img src="rato.png" alt="homem" width="200" height="180">
       </div>
       <div class="list-group list-group-flush itens">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Vendas
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Nova venda</a>
-          <a class="dropdown-item" href="#">Lista</a>
+        <div class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Vendas
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/cadVenda">Nova venda</a>
+            <a class="dropdown-item" href="/listVenda">Lista Venda</a>
+          </div>
         </div>
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Produtos
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="localhost/cad">Novo Produto</a>
-          <a class="dropdown-item" href="#">Lista</a>
+
+        <!-- Mudar o id da navbra-->
+        <div class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarProduto" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Produtos
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarProduto">
+            <a class="dropdown-item" href="/cadProduto">Novo Produto</a>
+            <a class="dropdown-item" href="/listProduto">Lista Produto</a>
+          </div>
         </div>
       </div>
     </div>
@@ -94,99 +158,138 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Dropdown
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
-          </ul>
-        </div>
+
       </nav>
-
-      <div class="container-fluid home">
-          <div id='id'class='id'>
-            <span class ='texto'>ID</span>
-            <br>
-            </div>
-        <div id='nome'class="nome">
-            <span class ='texto'>Nome</span>
-            <br>
-        </div>
-        
-      
-      <div id='valor'class='valor'>
-          <span class ='texto tit'>Valor</span>
-          <br>
+      <div class="titu" id='titu'>
+        <span>Histórico Produtos</span>
       </div>
-    </div>  
-    <!-- /#page-content-wrapper -->
+      <div class="container-fluid home">
 
-  </div>
-  <!-- /#wrapper -->
+        <div class='tabela'>
+          <div id='id' class='id'>
+            <span class='texto'>ID</span>
+          </div>
+          <div id='nome' class="nome">
+            <span class='texto'>Nome</span>
+          </div>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function (e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
+          <div id='valor' class='valor'>
+            <span class='texto tit' style='float: right; margin-left: 0%;margin-right: 5%;'>Valor</span>
+          </div>
+          <div class='bt' id='edit' style='border-right: 1px solid white'>
+            <a>Ações</a>
+          </div>
+          <div class='bt' id='del'>
+            <a style='overflow: hidden;'>Ações</a>
+          </div>
+        </div>
+      </div>
+      <!-- /#page-content-wrapper -->
 
-    function listaTarefa(){
-      let divId = document.getElementById('id')
-      let divNome = document.getElementById('nome')
-      let divValor = document.getElementById('valor')
-      console.log('Getting...');
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+      var o = 0;
+
+
+
+      function listaTarefa() {
+        let divId = document.getElementById('id')
+        let divNome = document.getElementById('nome')
+        let divValor = document.getElementById('valor')
+        let divDel = document.getElementById('del')
+        let divEdit = document.getElementById('edit')
+        console.log('Getting...');
 
         fetch('http://localhost/getProdutos', {
-            method: 'get',
+          method: 'get',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        }).then(response => response.json())
+          .then(data => {
+            data.forEach(element => {
+
+              let nome = element['nome']
+              let valor = element['valor']
+              let id = element['id']
+              var f = valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+              divId.innerHTML += `<br><span class="texto">${id}<span>`
+              divNome.innerHTML += `<br><span class="texto">${nome}<span>`
+              divValor.innerHTML += `<br><span class="texto val">${f}<span>`
+              divEdit.innerHTML += `<br><a type='button' onclick="editar(${id,nome,valor})" href='/cadProduto/${id}'>edit<a>`
+                console.log(id)
+              divDel.innerHTML += `<br><a type='button' onclick="excluir(${id})" href='#'>del</a>`
+              
+              /*
+<div class='bt'>
+<a>edit</a>
+</div>
+<div class='bt'>
+<a>del</a>
+</div>
+              */
+            });
+            /*let a = response.json();
+            console.log()
+            response.json(results).forEach(element => {
+                let desc = element.get("descricao")
+                console.log(desc)
+            });
+            */
+            /*Divdesc.innerHTML += `<span>${desc}`*/
+
+            /* e.innerHTML += `<span class="texto">${texto}<span>`*/
+          });
+      }
+      
+      function excluir(id) {
+        console.log('alo')
+        let url = 'http://localhost/deletar' + '/'+id
+        fetch(url, {
+          method: 'delete',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+      }).then(response =>{
+        if(response.status == 500) {
+          
+          div = document.getElementById('titu')
+          if (o != 1) {
+            o = 1;
+          div.innerHTML += `<span class='texto' style='float:right;font-size:24px;padding-top:20px;'>Erro ao deletar</span>`
+          }
+        } else {
+          alert('deletado')
+          window.location.reload()
+        }
+      })
+
+    //  
+    }
+    /*function editar(id,nome,valor) {
+       console.log('Posting...');
+        fetch('http://localhost/postProd', {
+            method: 'post',
             headers: {
                 'Content-Type': 'application/json'
             },
-        }).then(response => response.json())
-            .then(data => {
-                console.log(data)
-                data.forEach(element => {
-                  
-                    let nome = element['nome']
-                    let valor = element['valor']
-                    let id = element['id']
-                    console.log(nome)
-                    divId.innerHTML += `<span class="texto">${id}<span><br>`
-                    divNome.innerHTML += `<span class="texto">${nome}<span><br>`
-                    divValor.innerHTML += `<span class="texto">${valor}<span><br>`
-                });
-                /*let a = response.json();
-                console.log()
-                response.json(results).forEach(element => {
-                    let desc = element.get("descricao")
-                    console.log(desc)
-                });
-                */
-                /*Divdesc.innerHTML += `<span>${desc}`*/
+            body: JSON.stringify(jsonObj)
+        }).then(function (response) {
+            console.log(response)
+            document.getElementById("tio").style.visibility = "visible"
+            //element.style.backgroundColor = "red";
 
-                /* e.innerHTML += `<span class="texto">${texto}<span>`*/
-            });
-    }
-  </script>
+        })
+      }*/
+    </script>
 
 </body>
 

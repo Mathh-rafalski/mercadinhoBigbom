@@ -16,7 +16,7 @@
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
   <style>
-    .border-right {
+        .border-right {
       border-right: 1px solid black !important
     }
 
@@ -24,10 +24,6 @@
       border-radius: 50%;
     }
 
-    .button2:hover {
-      background-color: #008CBA;
-      color: white;
-    }
 
     .tarefa {
       background: blue;
@@ -95,17 +91,20 @@
 
     .adc {
       float: left;
-      margin-left: 25%;
+      margin-left: 5%;
+      margin-top: 9px;
     }
 
     .qtd {
       float: left;
       margin-left: 3%;
+      margin-top: 9px;
     }
 
     .bot {
       float: left;
       margin-left: 3%;
+      margin-top: 9px;
     }
 
     .btn:hover {
@@ -119,16 +118,18 @@
     .prod {
       float: left;
       width: 25%;
-      margin-left: 18%;
-      margin-top: 3%;
-      border: 1px solid black
+      margin-top: 5%;
+      border: 1px solid black;
+      border-right: 1px solid white;
+      
     }
 
     .quantidade {
       float: left;
-      width: 20%;
-      margin-top: 3%;
+      width: 8%;
+      margin-top: 5%;
       border: 1px solid black
+
     }
 
     .home {
@@ -138,8 +139,9 @@
     .valor {
       float: left;
       width: 20%;
-      margin-top: 3%;
-      border: 1px solid black
+      margin-top: 5%;
+      border: 1px solid black;
+      border-left: 1px solid white;
     }
 
     .top {
@@ -162,6 +164,44 @@
 
       font-size: 18px;
     }
+    .final {
+      position: absolute;
+      bottom: 150px;
+      right: 100px;
+      width: 10%;
+    }
+    .insert {
+      border: 1px solid black;
+      min-height: 60px;
+      width: 32%;
+    }
+    a:hover {
+      color:black;
+      background-color: white;
+    }
+    .bg {
+    background-color: #19b7d0
+    }
+    .text {
+      border-top: 1px solid black;
+    }
+    .val {
+      float: right;
+      margin-right: 5px;
+    }
+    a:hover {
+      color:black;
+      background-color: white;
+    }
+    .bg {
+    background-color: #19b7d0
+    }
+    .d-flex {
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .alo {
+      margin-top: 5px;
+    }
   </style>
 </head>
 
@@ -170,7 +210,7 @@
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="border-right bg" id="sidebar-wrapper">
       <div class="sidebar-heading">
         <a href="/">Menu</a>
       </div>
@@ -178,29 +218,30 @@
         <img src="rato.png" alt="homem" width="200" height="180">
       </div>
       <div class="list-group list-group-flush itens">
-        <div class="dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Vendas
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/">Nova produto</a>
-            <a class="dropdown-item" href="#">Lista</a>
-          </div>
+          <div class="dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Vendas
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/cadVenda">Nova venda</a>
+          <a class="dropdown-item" href="/listVenda">Lista Venda</a>
         </div>
+      </div>
 
         <!-- Mudar o id da navbra-->
-        <div class="dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarProduto" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Produtos
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarProduto">
-              <a class="dropdown-item" href="/cadProduto">Novuto</a>
-              <a class="dropdown-item" href="#">Lista</a>
-            </div>
+    <div class="dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarProduto" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Produtos
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarProduto">
+          <a class="dropdown-item" href="/cadProduto">Novo Produto</a>
+          <a class="dropdown-item" href="/listProduto">Lista Produto</a>
         </div>
       </div>
     </div>
+  </div>
     <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
@@ -218,6 +259,8 @@
       </nav>
 
       <div class="container-fluid home">
+        <div class="insert">
+          <div class='alo'>
         <div class="adc">
           <input type="number" class="pesq" id="pesq" name="pesq" placeholder="ID" min='1' max='99999'><br>
         </div>
@@ -227,20 +270,24 @@
         <div class="bot">
           <button type="button" class="btn btn-default btn-sm" onclick="adicionar()">ADD</button>
         </div>
-        <div id='prod' class='prod'>
-          <span class='top'>Produto</span>
-        </div>
-        <div id='quant' class='quantidade'>
-          <span class='top'>Quant</span>
-        </div>
-        <div id='valor' class='valor'>
-          <span class='top'>Valor</span>
-        </div>
-      </div>
-      <div class='salvar'>
-        <button type="button" class="finalizar btn btn-default btn-sm" onclick="finalizar()">Finalizar</button>
       </div>
     </div>
+      <div id='prod' class='prod'>
+        <span class='top'>Produto</span>
+      </div>
+      <div id='quant' class='quantidade'>
+        <span class='top'>Quant</span>
+      </div>
+      <div id='valor' class='valor'>
+        <span class='top' style='float: right; margin-right: 3%;'>Valor</span>
+        <br>
+      </div>
+      <input id='final'type="text" class='final' placeholder="Valor Final" readonly>
+    </div>
+    <div class='salvar'>
+      <button type="button" class="finalizar btn btn-default btn-sm" onclick="finalizar()">Finalizar</button>
+    </div>
+  </div>
   </div>
   </div>
   <!-- /#page-content-wrapper -->
@@ -258,7 +305,8 @@
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
   });
-var json = [];
+  var json = [];
+  var total = 0;
   function adicionar() {
     // adicionar o id posto na url pra pegar o prod do banco
     let divProd = document.getElementById('prod')
@@ -276,63 +324,72 @@ var json = [];
     }).then(response => response.json())
       .then(data => {
         console.log(data)
+        
+        let produto = data.nome
+        divProd.innerHTML += `<div class="text"><span class="texto">${produto}<span></div>`
+        let qtd = document.getElementById('qtd').value
+        let valor = data.valor
+        let valorTotal = valor * qtd
+        var f = valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+        divValor.innerHTML += `<div class='text'>
+          <span class="texto val"'>${f}<span>
+            </div><br>`
+            let inp = document.getElementById("final")
+        total += parseFloat(valorTotal)
+        
+        inp.value= total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+        divQuant.innerHTML += `<div class='text'><span class="texto">${qtd}<span></div>`
+        let obj = {
+          'quantidade': qtd,
+          'produto_id': data.id
+        }
+        json.push(obj)
 
-        data.forEach(element => {
-          let produto = element['nome']
-          divProd.innerHTML += `<br><span class="texto">${produto}<span>`
-          let qtd = document.getElementById('qtd').value
-          let valor = element['valor']
-          let valorTotal = valor * qtd
-          divValor.innerHTML += `<br><span class="texto">${valorTotal}<span>`
-          divQuant.innerHTML += `<br><span class="texto">${qtd}<span>`
-            let obj = {
-              'quantidade':qtd,
-              'produto_id':element['id']
-            }
-            json.push(obj)
-        });
       });
   }
   function finalizar() {
-   /* let data = new Date();
-    let jsonObj = {
-      'dataHora': data
+    /* let data = new Date();
+     let jsonObj = {
+       'dataHora': data
+     }
+     console.log('Posting...');
+     fetch('http://localhost/postVenda', {
+       method: 'post',
+       headers: {
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify(jsonObj)
+     }).then(function (response) {
+     })
+     let vendaId = 1;
+     fetch('http://localhost/getVendas', {
+       method: 'get',
+       headers: {
+         'Content-Type': 'application/json'
+       },
+     }).then(response => response.json())
+       .then(data => {
+         console.log(data)
+         data.forEach(element => {
+           vendaId = element['id']
+         });
+       });
+       */
+    var objeto = {
+      'itens': json
     }
-    console.log('Posting...');
-    fetch('http://localhost/postVenda', {
+    console.log(objeto.itens)
+    fetch('http://localhost/postVendaItem', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(jsonObj)
+      body: JSON.stringify(objeto)
     }).then(function (response) {
+      res.send('fala fi')
     })
-    let vendaId = 1;
-    fetch('http://localhost/getVendas', {
-      method: 'get',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }).then(response => response.json())
-      .then(data => {
-        console.log(data)
-        data.forEach(element => {
-          vendaId = element['id']
-        });
-      });
-      */
-
-      fetch('http://localhost/postVendaItem', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(json)
-      }).then(function (response) {
-        res.send('fala fi')
-      })
-    }
   }
+
 
 </script>
 

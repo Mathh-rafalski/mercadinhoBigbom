@@ -5,6 +5,8 @@ const cors = require('cors');
 const path = require('path')
 const app = express()
 const mysql = require('mysql')
+const moment = require('moment')
+
 const connection = mysql.createConnection({
   host: 'localhost',
   port: 3306,
@@ -17,6 +19,37 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
+app.delete('/deletar/:id',function(req,res) {
+  let id = req.params.id;
+  let sql = `delete from produtos where id = ?`
+  console.log("ou")
+  connection.query(sql, [id], (error, results, fields) => {
+      if (error) {
+        res.status(500).send('erro')
+      } else {
+        res.send('del')
+      }
+      
+});
+});
+// update produtos set categoria_id=8 where categoria_id = 2 or categoria_id = 7;
+// update tarefas set descricao = 'aaaa' where id='24'
+app.patch('/update/:id',function(req,res) {
+  let nome = req.params.nome;
+  let id = req.params.id;
+  let valor = req.params.valor
+  /*desc = desc.replace("+","'")
+  desc = desc.replace("+","'")
+  dataHora = dataHora.replace("+","'")
+  dataHora = dataHora.replace("+","'")*/
+  let sql = `update produtos set valor=?,nome=? where id=?`
+  connection.query(sql,[valor,nome,id],(error,results,fields) => {
+      if (error) {
+          console.log("umas treta loca ai")
+      }
+      res.send("Atualizado os esquemas")
+  });
+});
 app.get('/getVendas', function (req, res) {
   connection.query('select id,data_hora from vendas',
     function (error, results, fields) {
@@ -26,7 +59,7 @@ app.get('/getVendas', function (req, res) {
         res.json(results);
       //connection.end();
     });
-  });
+});
 app.get('/produto/:id', function (req, res) {
   let id = req.params.id;
   console.log(id)
@@ -35,30 +68,44 @@ app.get('/produto/:id', function (req, res) {
     if (error) {
       console.log("erro do bao")
     }
-    res.json(results)
+    res.json(results[0])
   });
 });
-app.post('/postVenda', function(req,res) {
-  let venda_id;
-  var sql = "INSERT INTO `vendas` (data_hora) VALUES ('" + req.body.dataHora+ "')";
+app.post('/postVenda', function (req, res) {
+  var sql = "INSERT INTO `vendas` (data_hora) VALUES ('" + req.body.dataHora + "')";
   connection.query(sql, function (err, result) {
     res.send("fala fi")
   });
 });
-app.post('/postVendaItem', function(req,res) {
-  var data = Date();
-  connection.query("insert into vendas (data_hora) values ('"+data+"')",function(err,result) {
+app.post('/postVendaItem', function (req, res) {
+  var data = new Date();
+  var data = moment(data).format('YYYY-MM-DD HH:mm')
+  console.log(data)
+  connection.query("insert into vendas (data_hora) values ('" + data + "')", function (err, result) {
+    var venda_id = result.insertId
+    var array = req.body.itens
+    for (let i = 0; i < array.length; i++) {
+      var select = "(select valor from produtos where id = '" +array[i].produto_id+"')*'"+array[i].quantidade+"'"
+      // INSERT INTO produto_venda (produto_id,venda_id,quantidade,valor_total) VALUES ('1','1','3', (select valor from produtos where id = '1')*3)
+      var sql = "INSERT INTO `produto_venda` (produto_id,venda_id,quantidade,valor_total) VALUES ('" + array[i].produto_id + "', '" + venda_id + "','" + array[i].quantidade + "'," +select + ")";
+      connection.query(sql, function (err, result) {
+        console.log(err)
+      });
+    }
+  });
+});
 
-  })
-  connection.query("select id from vendas ",function(err,results,fields) {
-    venda_id = results
-  })
-  console.log(req.body.json)
-  var sql = "INSERT INTO `produto_venda` (produto_id,venda_id,quantidade,valor_total) VALUES ('" + req.body.produto_id + "', '" + venda_id + "','"+req.body.quantidade+"','"+req.body.valor_total+"')";
-  connection.query(sql, function (err, result) {
-    res.send("fala fi")
-  });
-});
+/*
+var venda_id;
+connection.query("select id from vendas ",function(err,results,fields) {
+  console.log(results.length)
+  venda_id = results.length
+})
+ 
+}
+*/
+
+
 /*BEGIN;
 INSERT INTO users (username, password)
   VALUES('test', 'test');
@@ -75,33 +122,53 @@ app.get('/getProdutos', function (req, res) {
         res.json(results);
       //connection.end();
     });
-  });
-  app.use('/cadProduto', function (req, res) {
-    res.sendFile(path.join(__dirname, 'public', 'Novoproduto.html'));
-    //C:\Users\Matheus\Desktop\an
-  });
-  app.use('/cadVenda', function (req, res) {
-    res.sendFile(path.join(__dirname, 'public', 'cadVenda.html'));
-    //C:\Users\Matheus\Desktop\an
-  });
-  app.post('/postProd', function (req, res) {
-    console.log(req.body.dataHora);
-    var sql = "INSERT INTO `produtos` (`nome`,`valor`) VALUES ('" + req.body.nome + "', '" + req.body.valor + "')";
-    connection.query(sql, function (err, result) {
-      res.send("fala fi")
-    });
-  });
-  app.use('/', function (req, res) {
-    console.log('ai')
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-    //C:\Users\Matheus\Desktop\a
-  });
-  app.use('/produtos', function (req, res) {
-    console.log("açlo");
+});
+app.use('/editProduto/:id/:nome/:valor',function(req,res){
+  res.sendFile(path.join(__dirname,'public','Novoproduto.html'))
+  /*
+  let json = {
+    'nome':req.params.nome,
+    'valor':req.params.valor,
+    'id':req.params.id
+  }
+  res.send(json)
+  */
 
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-    //C:\Users\Matheus\Desktop\a
+})
+app.use('/cadProduto', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'Novoproduto.html'));
+  //C:\Users\Matheus\Desktop\an
+});
+app.use('/cadVenda', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'cadVenda.html'));
+  //C:\Users\Matheus\Desktop\an
+});
+app.use('/listProduto', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'listProduto.html'));
+  //C:\Users\Matheus\Desktop\an
+});
+app.use('/listVenda', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'listVenda.html'));
+  //C:\Users\Matheus\Desktop\an
+});
+app.post('/postProd', function (req, res) {
+  console.log(req.body.dataHora);
+  var sql = "INSERT INTO `produtos` (`nome`,`valor`) VALUES ('" + req.body.nome + "', '" + req.body.valor + "')";
+  connection.query(sql, function (err, result) {
+    res.send("fala fi")
   });
+});
+app.use('/', function (req, res) {
+  console.log('ai')
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  //C:\Users\Matheus\Desktop\a
+});
+app.use('/produtos', function (req, res) {
+  console.log("açlo");
+
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  //C:\Users\Matheus\Desktop\a
+});
 
 
 
