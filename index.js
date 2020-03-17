@@ -32,6 +32,23 @@ app.delete('/deletar/:id',function(req,res) {
       
 });
 });
+/*
+SELECT nome,(select sum(quantidade) from produto_venda pv where p.id = pv.produto_id)*100/(select sum(quantidade) from produto_venda) as porcentagem FROM produto_venda pv2
+join produtos p on(p.id = pv2.produto_id)
+group by nome;
+
+*/
+app.get('/graph',function(req,res){
+  let sql = "select nome,(select sum(quantidade) from produto_venda pv where p.id = pv.produto_id)*100/(select sum(quantidade) from produto_venda) as porcentagem from produto_venda pv2 join produtos p on (p.id = pv2.produto_id) group by nome order by porcentagem desc limit 5;"
+  connection.query(sql,function(error,results,fields){
+    if(error) {
+      console.log(error)
+    }
+    console.log('fort')
+    res.json(results)
+  })
+})
+
 // update produtos set categoria_id=8 where categoria_id = 2 or categoria_id = 7;
 // update tarefas set descricao = 'aaaa' where id='24'
 app.patch('/update/:id',function(req,res) {
@@ -134,6 +151,12 @@ app.use('/editProduto/:id/:nome/:valor',function(req,res){
   res.send(json)
   */
 
+})
+app.use('/topCinco', function(req,res){
+  res.sendFile(path.join(__dirname, 'public','produtosVendidos.html'))
+})
+app.use('/hori', function(req,res){
+  res.sendFile(path.join(__dirname, 'public','graphorizo.html'))
 })
 app.use('/cadProduto', function (req, res) {
   res.sendFile(path.join(__dirname, 'public', 'Novoproduto.html'));

@@ -11,10 +11,10 @@
   <title>Simple Sidebar - Start Bootstrap Template</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/simple-sidebar.css" rel="stylesheet">
+  <link href="/css/simple-sidebar.css" rel="stylesheet">
   <style>
     .border-right {
       border-right: 1px solid black !important
@@ -33,11 +33,30 @@
     .d-flex {
       font-family: 'Courier New', Courier, monospace;
     }
-
+    .row {
+        border: 1px solid black;
+        margin: 5%;
+        margin-left: 15%;
+        margin-right: 15%;
+        height: 500px;
+    }
+    .coluna {
+        height: 30px;
+        background: #19b7d0;
+        width: 100%;
+        margin-top: 2%;
+        margin-left: 2%;
+        margin-right: 2%;
+        float: left;
+    }
+    .buraco {
+        height: 30px;
+        float: left;
+    }
   </style>
 </head>
 
-<body>
+<body onload="graph()">
 
   <div class="d-flex" id="wrapper">
 
@@ -70,8 +89,6 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarProduto">
           <a class="dropdown-item" href="/cadProduto">Novo Produto</a>
           <a class="dropdown-item" href="/listProduto">Lista Produto</a>
-          <a class='dropdown-item' href="/topCinco">Relatório</a>
-          <a class='dropdown-item' href="/hori">alo</a>
         </div>
       </div>
     </div>
@@ -93,7 +110,8 @@
       </nav>
 
       <div class="container-fluid home">
-        <h1>Bem-Vindo</h1>
+          <div class='row' id='graph'>
+          </div>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -111,6 +129,37 @@
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
+    var total= 100 
+    function graph() {
+        console.log('ie')
+        div = document.getElementById('graph')
+        fetch('http://localhost/graph', {
+          method: 'get',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+        }).then(response => response.json())
+          .then(data => {
+            data.forEach(element => {
+                console.log(element.porcentagem)
+                let porcentagem = element.porcentagem
+                porcentagem = Math.round(porcentagem)
+                porcentagem += '%'
+                let buraco = 90 - element.porcentagem
+                buraco += '%'
+                total -= element.porcentagem
+                div.innerHTML +=  `<div class='coluna' style='width:${porcentagem}'>${element.nome} ${porcentagem}</div>`
+                div.innerHTML +=  ` <div class='buraco' style='width:${buraco}'></div>`
+                
+    })
+    total = Math.round(total)
+    total += '%'
+    
+    div.innerHTML += `<div class='coluna' style='width:${total}'>Outros ${total}</div>`
+})
+    }
+
   </script>
 
 </body>

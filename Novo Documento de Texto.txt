@@ -1,0 +1,4 @@
+SELECT nome,(select sum(quantidade) from produto_venda pv where p.id = pv.produto_id)*100/(select sum(quantidade) from produto_venda) as porcentagem FROM produto_venda pv2
+join produtos p on(p.id = pv2.produto_id)
+group by nome
+order by porcentagem desc limit 5;
