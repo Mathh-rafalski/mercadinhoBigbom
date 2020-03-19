@@ -133,11 +133,12 @@ COMMIT;
 app.get('/getProdutos', function (req, res) {
   connection.query('select nome,valor,id from produtos',
     function (error, results, fields) {
-      if (error)
+      if (error) {
         res.json(error);
-      else
+      }else {
         res.json(results);
       //connection.end();
+      }
     });
 });
 app.use('/editProduto/:id/:nome/:valor',function(req,res){
