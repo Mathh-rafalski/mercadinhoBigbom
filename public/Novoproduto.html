@@ -228,12 +228,11 @@
         return;
       }
       console.log(valor)
-      valor = valor.split(',')
-      valor[0] = valor[0].replace('R$', "")
-      console.log(valor[0])
+      valor = valor.replace('R$', "")
       if (valor.includes(",")) {
         valor = valor.replace(",", ".")
       }
+      console.log(valor)
       var id = window.location.href.split('/')
       if (!isNaN(id[4])) {
 
@@ -248,7 +247,7 @@
       } else {
         let produto = {
           "nome": nome,
-          "valor": valor[0]
+          "valor": valor
         }
 
         enviarPoServer(produto)
