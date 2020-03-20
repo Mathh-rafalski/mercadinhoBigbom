@@ -15,90 +15,115 @@
 
   <!-- Custom styles for this template -->
   <link href="/css/simple-sidebar.css" rel="stylesheet">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"
+    type="text/javascript"></script>
+
   <style>
     .border-right {
-      border-right: 1px solid black!important
+      border-right: 1px solid black !important
     }
+
     img {
-        border-radius: 50%;
+      border-radius: 50%;
     }
+
     #btn:hover {
       background-color: #17a2b8;
       border-color: black;
     }
-    .tarefa {
-            background: blue;
-            width: 250px;
-            min-height: 240px;
-            align-items: center;
-            margin-top: 3%;
-            background: white;
-            border: 1px solid black;
-            float: left;
-        }
-        .form {
-            text-align: center;
-            padding-top: 2%;
-        }
-        .lbl {
-            margin-top: 4px;
-            font-weight: bold;
-            color:white;
-        }
-        .salvar {
-            margin-top: 40%;
-            float: right;
-            background-color: black;
-            color: white;
-            
-        }
-        button:hover {
-          background-color: #17a2b8
-        }
-        .butao {
-            border-radius: 10px;
-            font-weight: bold;
-            display: inline-block;
-  text-align: center;
-  transition: all 1s;
-  cursor: pointer;
-  margin-top: 20%;
 
-        }
-        .msg {
-            text-align: center;
-            height: 50px;
-            width: 20%;
-            margin-top: 2%;
-            font-size: 24px;
-            visibility: hidden;
-            color: #17a2b8;
-            font-family: cursive
-        }
-        .tit {
-          float: left!important;
-          width: 100%;
-          border-bottom: 1px solid black;
-          margin-top: 2%;
-        }
-        .text {
-          font-size: 48px;
-          font-family: 'Courier New', Courier, monospace;
-          margin-right: 60%;
-          float: left;
-          padding-left: 10px;
-        }
-        a:hover {
-      color:black;
+    .tarefa {
+      background: blue;
+      width: 250px;
+      min-height: 240px;
+      align-items: center;
+      margin-top: 3%;
+      background: white;
+      border: 1px solid black;
+      float: left;
+    }
+
+    .form {
+      text-align: center;
+      padding-top: 2%;
+    }
+
+    .lbl {
+      margin-top: 4px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .salvar {
+      margin-top: 40%;
+      float: right;
+      background-color: black;
+      color: white;
+
+    }
+
+    button:hover {
+      background-color: #17a2b8
+    }
+
+    .butao {
+      border-radius: 10px;
+      font-weight: bold;
+      display: inline-block;
+      text-align: center;
+      transition: all 1s;
+      cursor: pointer;
+      margin-top: 20%;
+
+    }
+
+    .msg {
+      text-align: center;
+      height: 50px;
+      width: 20%;
+      margin-top: 2%;
+      font-size: 24px;
+      visibility: hidden;
+      color: #17a2b8;
+      font-family: cursive
+    }
+
+    .tit {
+      float: left !important;
+      width: 100%;
+      border-bottom: 1px solid black;
+      margin-top: 2%;
+    }
+
+    .text {
+      font-size: 48px;
+      font-family: 'Courier New', Courier, monospace;
+      margin-right: 60%;
+      float: left;
+      padding-left: 10px;
+    }
+
+    a:hover {
+      color: black;
       background-color: white;
     }
+
     .bg {
       background-color: #19b7d0
     }
+
     .d-flex {
       font-family: 'Courier New', Courier, monospace;
     }
 
+    .err {
+      font-size: 12px;
+      font-family: cursive;
+      float: left;
+      text-align: center;
+      color: #17a2b8;
+    }
   </style>
 </head>
 
@@ -115,30 +140,30 @@
         <img src="/rato.png" alt="homem" width="200" height="180">
       </div>
       <div class="list-group list-group-flush itens">
-          <div class="dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Vendas
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/cadVenda">Nova venda</a>
-          <a class="dropdown-item" href="/listVenda">Lista Venda</a>
+        <div class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Vendas
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/cadVenda">Nova venda</a>
+            <a class="dropdown-item" href="/listVenda">Lista Venda</a>
+          </div>
         </div>
-      </div>
 
         <!-- Mudar o id da navbra-->
-    <div class="dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarProduto" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Produtos
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarProduto">
-          <a class="dropdown-item" href="/cadProduto">Novo Produto</a>
-          <a class="dropdown-item" href="/listProduto">Lista Produto</a>
+        <div class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarProduto" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Produtos
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarProduto">
+            <a class="dropdown-item" href="/cadProduto">Novo Produto</a>
+            <a class="dropdown-item" href="/listProduto">Lista Produto</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
     <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
@@ -155,21 +180,22 @@
 
       </nav>
       <div class="container-fluid vish">
-        <div class ='tit'>
-          <span class='text'>Novo produto</span>
+        <div class='tit'>
+          <span class='text' id='edit'>Novo produto</span>
         </div>
-          <div class="tarefa container clearfix">
-              <form class="form" id="formulario">
-                  <label class="lbl" for="fname">Nome</label><br>
-                  <input type="text" id="desc" name="fname" placeholder="Pastel"><br>
-                  <label class="lbl" for="lname">Valor</label><br>
-                  <input type="currency" id="data" name="lname" placeholder="5,50"><br>
-                  <button id='btn'type="button" onclick="enviar()" class="btn btn-light salvar btn-sm butao">Enviar</button>
-              </form>
-          </div>
-              <span class="msg" id="tio">
-                  Envio tio
-              </span>
+        <div class="tarefa container clearfix" id='alo'>
+          <form class="form" id="formulario">
+            <label class="lbl" for="fname">Nome</label><br>
+            <input type="text" id="desc" name="fname" placeholder="Pastel"><br>
+            <label class="lbl" for="lname">Valor</label><br>
+            <input type="text" id="money" name="lname" placeholder="R$ 5,50" data-prefix='R$ '><br>
+
+            <button id='btn' type="button" onclick="enviar()" class="btn btn-light salvar btn-sm butao">Salvar</button>
+          </form>
+        </div>
+        <span class="msg" id="tio">
+          Salvo tio
+        </span>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -178,54 +204,110 @@
   <!-- /#wrapper -->
 
   <!-- Bootstrap core JavaScript -->
-  <script src="/vendor/jquery/jquery.min.js"></script>
   <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
+  <script type="text/javascript">
+    $("#menu-toggle").click(function (e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
+    $(function () {
+      $("#money").maskMoney({ prefix: 'R$ ', thousands: '.', decimal: ',', affixesStay: true, precision: 2 });
+    })
+  </script>
+  <!-- Menu Toggle Script -->
+  <script>
 
     function enviar() {
       console.log('ao')
-        let nome = document.getElementById('desc').value
-        let valor = document.getElementById('data').value
-        if (valor.includes(",")) {
-        valor = valor.replace(",",".")
-        }
+      let nome = document.getElementById('desc').value
+      let valor = document.getElementById('money').value
+      if (nome.length >= 150) {
+        div = document.getElementById('alo')
+        alo.innerHTML += `<span class='err' style="visibility='visible'">Nome excedeu o limite de caracteres<span>`
+        nome.html = ""
+        return;
+      }
+      console.log(valor)
+      valor = valor.split(',')
+      valor[0] = valor[0].replace('R$', "")
+      console.log(valor[0])
+      if (valor.includes(",")) {
+        valor = valor.replace(",", ".")
+      }
+      var id = window.location.href.split('/')
+      if (!isNaN(id[4])) {
+
+        console.log(id[4])
+
         let produto = {
-            "nome": nome,
-            "valor": valor
+          'id': id[4],
+          'nome': nome,
+          'valor': valor
         }
+        editar(produto)
+      } else {
+        let produto = {
+          "nome": nome,
+          "valor": valor[0]
+        }
+
         enviarPoServer(produto)
       }
-        function enviarPoServer(jsonObj) {
-        console.log('Posting...');
-        fetch('http://localhost/postProd', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(jsonObj)
-        }).then(function (response) {
-            console.log(response)
-            document.getElementById("tio").style.visibility = "visible"
-            //element.style.backgroundColor = "red";
+    }
+    function enviarPoServer(jsonObj) {
+      console.log('Posting...');
+      fetch('http://localhost/postProd', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonObj)
+      }).then(function (response) {
+        console.log(response)
+        document.getElementById("tio").style.visibility = "visible"
+        //element.style.backgroundColor = "red";
 
-        })
+      })
+    }
+    function edit() {
+      console.log('a')
+      var id = window.location.href.split('/')
+      console.log(id[4])
+      if (!isNaN(id[4])) {
+        $("#edit").html("Editar Produto");
+        console.log('ou')
+        // verificou se ta editando ou criando novo produto, aqui esta editando
+        let url = 'localhost/produto/' + id[4]
+        console.log(url)
+        fetch('http://localhost/produto/' + id[4], {
+          method: 'get',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        }).then(response => response.json())
+          .then(data => {
+            console.log(data)
+            nome = document.getElementById('desc')
+            nome.value = data.nome
+            $("#money").maskMoney('mask', data.valor);
+
+          })
       }
-        function edit() {
-          console.log('a')
-          var a = window.location.href.split('/')
-          console.log(a[4])
-          if (isNaN([4])) {
-            // verificou se ta editando ou criando novo produto, aqui esta editando
-          }
-        }
-        
-    
+    }
+    function editar(produto) {
+      fetch(`localhost/update`, {
+        method: 'patch',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(produto)
+      }).then(function (response) {
+        console.log(response)
+        document.getElementById("tio").style.visibility = "visible"
+      })
+    }
+
+
   </script>
 
 </body>

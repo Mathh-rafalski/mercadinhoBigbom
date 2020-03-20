@@ -51,10 +51,10 @@ app.get('/graph',function(req,res){
 
 // update produtos set categoria_id=8 where categoria_id = 2 or categoria_id = 7;
 // update tarefas set descricao = 'aaaa' where id='24'
-app.patch('/update/:id',function(req,res) {
-  let nome = req.params.nome;
-  let id = req.params.id;
-  let valor = req.params.valor
+app.patch('/update',function(req,res) {
+  let nome = req.body.nome
+  let id = req.body.id;
+  let valor = req.body.valor
   /*desc = desc.replace("+","'")
   desc = desc.replace("+","'")
   dataHora = dataHora.replace("+","'")
@@ -135,13 +135,14 @@ app.get('/getProdutos', function (req, res) {
     function (error, results, fields) {
       if (error) {
         res.json(error);
-      }else {
+        console.log(error)
+      }
         res.json(results);
       //connection.end();
-      }
+      
     });
 });
-app.use('/editProduto/:id/:nome/:valor',function(req,res){
+app.use('/editProduto/:id',function(req,res){
   res.sendFile(path.join(__dirname,'public','Novoproduto.html'))
   /*
   let json = {
