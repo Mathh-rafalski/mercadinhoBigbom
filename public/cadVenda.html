@@ -24,6 +24,11 @@
       border-radius: 50%;
     }
 
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-left: 0px;
+    }
 
     .tarefa {
       background: blue;
@@ -99,6 +104,7 @@
       float: left;
       margin-left: 3%;
       margin-top: 9px;
+      width: 18%;
     }
 
     .bot {
@@ -129,6 +135,10 @@
       width: 8%;
       margin-top: 5%;
       border: 1px solid black
+    }
+
+    .quant {
+      width: 100%;
     }
 
     .home {
@@ -183,10 +193,9 @@
     .insert {
       border: 1px solid black;
       min-height: 60px;
-      width: 32%;
+      width: 50%;
       border-bottom: 1px solid white
     }
-
     a:hover {
       color: black;
       background-color: white;
@@ -205,10 +214,6 @@
       margin-left: 5px;
     }
 
-    .val {
-      margin-right: 5px;
-    }
-
     a:hover {
       color: black;
       background-color: white;
@@ -220,10 +225,6 @@
 
     .d-flex {
       font-family: 'Courier New', Courier, monospace;
-    }
-
-    .alo {
-      margin-top: 5px;
     }
 
     .txt {
@@ -243,52 +244,255 @@
       text-align: end;
 
     }
+
     a.deletar:hover {
       font-family: cursive;
     }
+
     .tabela {
       margin-top: 5%;
-      margin-left: 2%;
-      
+      margin-left: 15%;
+
     }
+
     .tabValor {
       margin-left: 8%;
       float: left;
     }
+
     .tabQtd {
       margin-left: 8%;
       float: left;
     }
-    
+
     .oloco {
       border: 1px solid black;
       height: 50%;
       width: 50%;
     }
+
     .remover {
       margin-left: 6%;
       float: left;
     }
+
     .novoQ {
       margin-left: 12%;
     }
+
     .novoT {
       float: left;
-      width: 80%;
-      
+      width: 100%;
+
     }
+
     .novoP {
       margin-left: 2%;
 
-      }
-      .novoV {
-        margin-left: 16%;
-      }
+    }
+
+    .novoV {
+      margin-left: 16%;
+    }
+
     .deletar {
       margin-left: 4%;
     }
-      
-    
+
+    .botao {
+      border: 1px solid white;
+      border-radius: 30%;
+      background-color: white;
+      color: black !important;
+    }
+
+    .botao:hover {
+      transition: 0.4s;
+      border-color: black;
+      color: black !important;
+
+    }
+
+    .col-2 {
+      border: 1px solid black;
+      border-left: 1px solid white;
+      border-bottom: 1px solid white;
+    }
+
+    .produto {
+      border-left: 1px solid black;
+    }
+
+    #snackbar {
+      visibility: hidden;
+      /* Hidden by default. Visible on click */
+      min-width: 250px;
+      /* Set a default minimum width */
+      margin-left: -125px;
+      /* Divide value of min-width by 2 */
+      background-color: rgb(34, 206, 214);
+      /* Black background color */
+      color: black(255, 255, 255);
+      /* White text color */
+      text-align: center;
+      /* Centered text */
+      border-radius: 2px;
+      /* Rounded borders */
+      padding: 16px;
+      /* Padding */
+      position: fixed;
+      /* Sit on top of the screen */
+      z-index: 1;
+      /* Add a z-index if needed */
+      left: 50%;
+      /* Center the snackbar */
+      bottom: 30px;
+      /* 30px from the bottom */
+    }
+
+    /* Show the snackbar when clicking on a button (class added with JavaScript) */
+    #snackbar.show {
+      visibility: visible;
+      /* Show the snackbar */
+      /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    /* Animations to fade the snackbar in and out */
+    @-webkit-keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+
+      to {
+        bottom: 30px;
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+
+      to {
+        bottom: 30px;
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
+      }
+
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
+      }
+
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
+    #inserido {
+      visibility: hidden;
+      /* Hidden by default. Visible on click */
+      min-width: 250px;
+      /* Set a default minimum width */
+      margin-left: -125px;
+      /* Divide value of min-width by 2 */
+      background-color: rgb(34, 206, 214);
+      /* Black background color */
+      color: black(255, 255, 255);
+      /* White text color */
+      text-align: center;
+      /* Centered text */
+      border-radius: 2px;
+      /* Rounded borders */
+      padding: 16px;
+      /* Padding */
+      position: fixed;
+      /* Sit on top of the screen */
+      z-index: 1;
+      /* Add a z-index if needed */
+      left: 50%;
+      /* Center the snackbar */
+      bottom: 30px;
+      /* 30px from the bottom */
+    }
+
+    /* Show the snackbar when clicking on a button (class added with JavaScript) */
+    #inserido.show {
+      visibility: visible;
+      /* Show the snackbar */
+      /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    /* Animations to fade the snackbar in and out */
+    @-webkit-keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+
+      to {
+        bottom: 30px;
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+
+      to {
+        bottom: 30px;
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
+      }
+
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
+      }
+
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 
@@ -355,22 +559,31 @@
               <input type="number" class="pesq" id="pesq" name="pesq" placeholder="ID" min='1' max='99999'><br>
             </div>
             <div class="qtd">
-              <input type="number" class="quant" id='qtd' name="qtd" placeholder="quant" min='1' max='99999'><br>
+              <input type="number" class="quant" id='qtd' name="qtd" placeholder="Quantidade" min='1' max='99999'><br>
             </div>
             <div class="bot">
               <button type="button" class="btn btn-default btn-sm" onclick="adicionar()">ADD</button>
             </div>
           </div>
         </div>
-        <div class='oloco'>
-        <div id='tabela' class='row tabela'>
-          <span class='tabProd'>Produto</span>
-          <span class='tabQtd'>Quant</span>
-          <span class='tabValor' style='float: right; margin-right: 3%;'>Valor</span>
-          <span class='remover'>Remover</span>
+        <div class='oloco row'>
+          <div id='tabela' class='row tabela col-12'>
+            <div class='col-2 produto' id='tabProd'>
+              <span>Produto</span>
+            </div>
+            <div class='col-2' id='tabQtd'>
+              <span>Quantidade</span>
+            </div>
+            <div class='col-2' id='tabValor' style='float: right;'>
+              <span>Valor</span>
+            </div>
+            <div class='col-2' id='tabDel'>
+              <span>Remover</span>
+            </div>
+          </div>
         </div>
-      </div>
-    
+        <div id="snackbar" class='snackbar'>Produto não encontrado</div>
+        <div id="inserido" class='snackbar'>Finalizado</div>
         <input id='final' type="text" class='final' placeholder="Valor Final" readonly>
       </div>
       <div class='salvar'>
@@ -414,7 +627,13 @@
         // if ($("element class or id name").css("property") == "value") {
         document.getElementById("txt").style.visibility = "hidden";
         if (isNaN(data.valor)) {
-          document.getElementById("txt").style.visibility = "visible";
+          var x = document.getElementById("snackbar");
+
+          // Add the "show" class to DIV
+          x.className = "show";
+
+          // After 3 seconds, remove the show class from DIV
+          setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
           // document.getElementById("p2").style.visibility = "hidden";
           return;
         }
@@ -426,21 +645,29 @@
         let valorTotal = valor * qtd
         var f = valorTotal.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
         tabela.innerHTML += ` <div id='${id}' class='row novoT'>
-          <span class='novoP'>${data.nome}</span>
-          <span class='novoQ'>${qtd}</span>
-          <span class='novoV' style='float: right; margin-right: 3%;'>${f}</span>
-          <a type='button'onclick='excluir(${id},${valorTotal})' class='deletar'>del<a>
+          <div  class='col-2 produto'>
+          <span>${data.nome}</span>
+          </div>
+              <div  class='col-2'> 
+          <span>${qtd}</span>
+          </div>
+              <div  class='col-2' style='float: right;'>
+          <span>${f}</span>
+          </div>
+              <div  class='col-2'>
+          <a class='botao'type='button'onclick='excluir(${id},${valorTotal})'>Deletar<a>
+              </div>
         </div>`
-        
 
-      
+
+
         /*divRem.innerHTML += `<div class='porque' id='${id}'><a type='button'onclick='excluir(${id})' class='deletar'>del<a><div>`
         divValor.innerHTML += `<div class='textFinal text' id='${valorTotal}'>
           <span class="texto val">${f}<span>
             </div>`*/
         let inp = document.getElementById("final")
         total += parseFloat(valorTotal)
-        
+
         inp.value = total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
         let obj = {
           'quantidade': qtd,
@@ -500,14 +727,18 @@
     }).then(function (response) {
       res.send('fala fi')
     })
+    console.log('alo')
+    var x = document.getElementById("inserido")
+    x.className = "show";
+    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
   }
-  function excluir(id,valor) {
+  function excluir(id, valor) {
     document.getElementById(id).remove()
     total -= valor
     document.getElementById("final").value = total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 
-    }
-  
+  }
+
 
 
 </script>
