@@ -85,6 +85,10 @@ app.get('/produto/:id', function (req, res) {
     if (error) {
       console.log("erro do bao")
     }
+    if(results[0] == null) {
+      res.json("vazio")
+      return;
+    }
     res.json(results[0])
   });
 });
