@@ -193,9 +193,8 @@
             <button id='btn' type="button" onclick="enviar()" class="btn btn-light salvar btn-sm butao">Salvar</button>
           </form>
         </div>
-        <span class="msg" id="tio">
-          Salvo tio
-        </span>
+        <div id="snackbar" class='snackbar'>Salvo</div>
+        <div id="inserido" class='snackbar'>Produto inválido</div>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -227,12 +226,13 @@
         nome.html = ""
         return;
       }
+      let n = valor
+
       console.log(valor)
-      valor = valor.replace('R$', "")
+      /*valor = valor.replace('R$', "")
       if (valor.includes(",")) {
         valor = valor.replace(",", ".")
-      }
-      console.log(valor)
+      }*/
       var id = window.location.href.split('/')
       if (!isNaN(id[4])) {
 
@@ -243,6 +243,7 @@
           'nome': nome,
           'valor': valor
         }
+        console.log(produto)
         editar(produto)
       } else {
         let produto = {
@@ -251,6 +252,7 @@
         }
 
         enviarPoServer(produto)
+        console.log(produto)
       }
     }
     function enviarPoServer(jsonObj) {
@@ -263,7 +265,24 @@
         body: JSON.stringify(jsonObj)
       }).then(function (response) {
         console.log(response)
-        document.getElementById("tio").style.visibility = "visible"
+        if (response.status == 500) {
+          var x = document.getElementById("inserido");
+
+          // Add the "show" class to DIV
+          x.className = "show";
+
+          // After 3 seconds, remove the show class from DIV
+          setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+          return;
+
+        }
+        var x = document.getElementById("snackbar");
+
+        // Add the "show" class to DIV
+        x.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         //element.style.backgroundColor = "red";
 
       })
@@ -294,7 +313,7 @@
       }
     }
     function editar(produto) {
-      fetch(`localhost/update`, {
+      fetch("/produto/update", {
         method: 'patch',
         headers: {
           'Content-Type': 'application/json'
@@ -302,7 +321,9 @@
         body: JSON.stringify(produto)
       }).then(function (response) {
         console.log(response)
-        document.getElementById("tio").style.visibility = "visible"
+        if (response.status == 500) {
+          return;
+        }
       })
     }
 
