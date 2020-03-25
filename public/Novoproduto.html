@@ -89,20 +89,12 @@
       font-family: cursive
     }
 
-    .tit {
+    .titulo {
       float: left !important;
       width: 100%;
-      border-bottom: 1px solid black;
       margin-top: 2%;
     }
 
-    .text {
-      font-size: 48px;
-      font-family: 'Courier New', Courier, monospace;
-      margin-right: 60%;
-      float: left;
-      padding-left: 10px;
-    }
 
     a:hover {
       color: black;
@@ -179,8 +171,8 @@
 
 
       </nav>
-      <div class="container-fluid vish">
-        <div class='tit'>
+      <div class="container-fluid">
+        <div class='titulo'>
           <span class='text' id='edit'>Novo produto</span>
         </div>
         <div class="tarefa container clearfix" id='alo'>
@@ -193,8 +185,8 @@
             <button id='btn' type="button" onclick="enviar()" class="btn btn-light salvar btn-sm butao">Salvar</button>
           </form>
         </div>
-        <div id="snackbar" class='snackbar'>Salvo</div>
-        <div id="inserido" class='snackbar'>Produto inválido</div>
+        <div id="snackbar" class='snackbar'></span id='save'>Salvo</span></div>
+        <div id="inserido" class='snackbar'><span id='err'>Produto inválido</span></div>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -257,35 +249,40 @@
     }
     function enviarPoServer(jsonObj) {
       console.log('Posting...');
-      fetch('http://localhost/postProd', {
+      fetch('http://localhost/produto/inserir', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(jsonObj)
-      }).then(function (response) {
-        console.log(response)
-        if (response.status == 500) {
-          var x = document.getElementById("inserido");
+      }).then(response => response.json())
+
+        .then(data => {
+          console.log(data)
+
+          if (data.erro != 'salvo') {
+            var x = document.getElementById("inserido");
+            let y = document.getElementById('err')
+            y.innerHTML = data.erro
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            return;
+
+          }
+          
+          var x = document.getElementById("snackbar");
 
           // Add the "show" class to DIV
           x.className = "show";
 
           // After 3 seconds, remove the show class from DIV
           setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-          return;
+          //element.style.backgroundColor = "red";
 
-        }
-        var x = document.getElementById("snackbar");
-
-        // Add the "show" class to DIV
-        x.className = "show";
-
-        // After 3 seconds, remove the show class from DIV
-        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-        //element.style.backgroundColor = "red";
-
-      })
+        })
     }
     function edit() {
       console.log('a')
@@ -313,18 +310,41 @@
       }
     }
     function editar(produto) {
-      fetch("/produto/update", {
-        method: 'patch',
+      console.log('alo')
+      fetch("http://localhost/produto/update", {
+        method: 'post',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(produto)
-      }).then(function (response) {
-        console.log(response)
-        if (response.status == 500) {
-          return;
-        }
-      })
+      }).then(response => response.json())
+
+        .then(data => {
+          console.log(data)
+
+          if (data.erro != 'salvo') {
+            var x = document.getElementById("inserido");
+            let y = document.getElementById('err')
+            y.innerHTML = data.erro
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            return;
+
+          }
+          console.log('ououou')
+          var x = document.getElementById("snackbar");
+
+          // Add the "show" class to DIV
+          x.className = "show";
+
+          // After 3 seconds, remove the show class from DIV
+          setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+          //element.style.backgroundColor = "red";
+
+        })
     }
 
 

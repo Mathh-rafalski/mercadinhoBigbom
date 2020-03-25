@@ -25,7 +25,7 @@ app.delete('/deletar/:id',function(req,res) {
   console.log("ou")
   connection.query(sql, [id], (error, results, fields) => {
       if (error) {
-        res.status(500).send('erro')
+        res.status(500).json({erro:'erro'})
       } else {
         res.send('del')
       }
@@ -51,12 +51,16 @@ app.get('/graph',function(req,res){
 
 // update produtos set categoria_id=8 where categoria_id = 2 or categoria_id = 7;
 // update tarefas set descricao = 'aaaa' where id='24'
-app.patch("/produto/update",function(req,res) {
+app.post("/produto/update",function(req,res) {
   console.log('eu sie')
   let nome = req.body.nome
   let id = req.body.id;
   let valor = req.body.valor
   valor = validarCampos(valor,nome,res)
+  console.log(boolean)
+  if(boolean == false) {
+    return;
+  }
   /*desc = desc.replace("+","'")
   desc = desc.replace("+","'")
   dataHora = dataHora.replace("+","'")
@@ -66,7 +70,7 @@ app.patch("/produto/update",function(req,res) {
       if (error) {
           console.log("umas treta loca ai")
       }
-      res.send("Atualizado os esquemas")
+      res.json({erro:'salvo'})
   });
 });
 app.get('/getVendas', function (req, res) {
@@ -75,15 +79,19 @@ app.get('/getVendas', function (req, res) {
       if (error)
         res.json(error);
       else
+        results.forEach(element => {
+          console.log(results)
+          element.data_hora = moment(element.data_hora).format('DD/MM/YYYY HH:mm')
+        });
         res.json(results);
       //connection.end();
     });
 });
 app.get('/produto/:id', function (req, res) {
   let id = req.params.id;
-  console.log(id)
   let sql = 'select id,nome,valor from produtos where id=?'
   connection.query(sql, id, (error, results, fields) => {
+    console.log(results)
     if (error) {
       console.log("erro do bao")
     }
@@ -91,6 +99,7 @@ app.get('/produto/:id', function (req, res) {
       res.json("vazio")
       return;
     }
+    console.log(results[0])
     res.json(results[0])
   });
 });
@@ -118,9 +127,10 @@ app.post('/postVendaItem', function (req, res) {
     }
   });
 });
-app.post('/postProd', function (req, res) {
+app.post('/produto/inserir', function (req, res) {
   let n = req.body.valor
   let p = req.body.nome
+  boolean = true;
   n = validarCampos(n,p,res)
   console.log(boolean);
   
@@ -131,7 +141,7 @@ app.post('/postProd', function (req, res) {
   
   var sql = "INSERT INTO `produtos` (`nome`,`valor`) VALUES ('" + p + "', '" + n + "')";
   connection.query(sql, function (err, result) {
-    res.send('alooo')
+    res.send({erro:'salvo'})
   });
 });
 var boolean = true;
@@ -140,13 +150,13 @@ function validarCampos(n,p,res) {
   if (!isNaN(n)) {
     console.log('eror nu')
     boolean = false
-    res.status(500).send({erro:"Numero invalido"})
+    res.status(500).send({erro:'Valor inválido'})
     return;
   }
   if (p == '' || p.length < 2) {
     console.log('o')
     boolean = false
-    res.status(500).send('erro')
+    res.status(500).send({erro:'Nome não pode ser nulo'})
     return;
   }
   let s = p.split('')
@@ -154,7 +164,7 @@ function validarCampos(n,p,res) {
     if(!isNaN(s[i])) {
       console.log('o')
       boolean = false
-      res.status(500).send('erro')
+      res.status(500).send({erro:'Não pode conter números no nome '})
       return;
     }
   }

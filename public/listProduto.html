@@ -45,13 +45,15 @@
       border: 1px solid black;
       border-left: 1px solid white;
       float: left;
+      text-align: center;
     }
 
     .id {
-      width: 10%;
+      width: 5%;
       float: left;
       border: 1px solid black;
       margin-left: 5%;
+      text-align: center;
     }
 
     .home {
@@ -65,15 +67,14 @@
     .home {
 
       border: 2px solid black;
-      height: 82%;
+      height: 72%;
       width: 60%;
-      margin-top: 6%;
+      margin-top: 8%;
     }
 
     .tabela {
-      margin-top: 35px;
+      margin-top: 150px;
       margin-bottom: 35px;
-      margin-left: 19px;
     }
 
     .titu {
@@ -101,11 +102,15 @@
     .val {
       float: right !important;
       margin-right: 2px;
-      width: 50%;
+      margin-right: 5%;
     }
     .texto {
       float: left;
       margin-left: 5%;
+    }
+    .titulo {
+      margin-top: 2%;
+      padding-left: 15px;
     }
   </style>
 </head>
@@ -162,14 +167,14 @@
 
 
       </nav>
-      <div class="titu" id='titu'>
-        <span>Histórico Produtos</span>
-      </div>
-      <div class="container-fluid home row">
+      <div class='titulo'>
+          <span class='text'>Histórico de Produtos</span>
+        </div>
+     
 
         <div class='tabela row col-12'>
           <div id='id' class='id'>
-            <span class='texto'>ID</span>
+            <span class='texto' style='margin-left:0%;width:100%'>ID</span>
           </div>
           <div id='nome' class="nome">
             <span class='texto'>Nome</span>
@@ -186,7 +191,6 @@
             <a style='overflow: hidden;'>Ações</a>
           </div>
         </div>
-      </div>
       <!-- /#page-content-wrapper -->
 
     </div>
@@ -227,7 +231,7 @@
               let valor = element['valor']
               let id = element['id']
               var f = valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-              divId.innerHTML += `<br><span class="texto">${id}<span>`
+              divId.innerHTML += `<br><span class="texto" style='margin-left:0%; width:100%'>${id}<span>`
               divNome.innerHTML += `<br><span class="texto">${nome}<span>`
               divValor.innerHTML += `<br><span class="texto val">${f}<span>`
               divEdit.innerHTML += `<br><a type='button' href='/cadProduto/${id}'>edit<a>`

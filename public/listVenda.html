@@ -37,14 +37,10 @@
             font-family: 'Courier New', Courier, monospace;
         }
 
-        .titu {
-            font-size: 38px;
-            font-family: 'Courier New', Courier, monospace;
-            float: left;
-            padding-left: 10px;
-            border-bottom: 1px solid black;
-            width: 100%;
-        }
+        .titulo {
+      margin-top: 2%;
+      padding-left: 15px;
+    }
 
         .id {
             width: 10%;
@@ -63,6 +59,10 @@
 
         .row {
             margin-top: 8%;
+        }
+        .info {
+            float: left;
+            width: 100%;
         }
     </style>
 </head>
@@ -120,20 +120,18 @@
 
 
             </nav>
-            <div class="titu">
-                <span>Histórico Produtos</span>
+            <div class="titulo">
+                <span class='text'>Histórico de Vendas</span>
             </div>
             <div class="container-fluid home">
 
                 <div class='tabela row'>
                     <div id='id' class='id'>
-                        <span class='texto'>ID</span><br>
-                        <span>1</span>
+                        <span>ID</span>
                         <br>
                     </div>
                     <div id='data' class="data">
-                        <span class='texto'>Data</span><br>
-                        <span>20/10/2003 20:30:40</span>
+                        <span class='texto'>Data</span>
                         <br>
                     </div>
                 </div>
@@ -158,7 +156,7 @@
             divId = document.getElementById('id')
             divData = document.getElementById('data')
 
-            fetch('http://localhost/getProdutos', {
+            fetch('http://localhost/getVendas', {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json'
@@ -167,7 +165,8 @@
                 .then(data => {
                     console.log(data)
                     data.forEach(element => {
-
+                        divId.innerHTML += `<span class='info'>${element.id}<span>`
+                        divData.innerHTML += `<span class='info'>${element.data_hora}<span>`    
                     })
                 })
         }

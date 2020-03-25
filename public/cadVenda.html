@@ -193,8 +193,10 @@
     .insert {
       border: 1px solid black;
       min-height: 60px;
-      width: 50%;
-      border-bottom: 1px solid white
+      width: 70%;
+      border-bottom: 1px solid white;
+      margin-top: 10%;
+      
     }
     a:hover {
       color: black;
@@ -206,8 +208,10 @@
     }
 
     .text {
-      border-top: 1px solid black;
+      border-bottom: 1px solid black;
       width: 100%;
+      padding-left: 10px;
+
     }
 
     .bt {
@@ -235,6 +239,10 @@
       left: 266px;
       visibility: hidden;
     }
+    .titulo {
+      margin-top: 2%;
+      padding-left: 15px;
+    }
 
     .porque {
       border-top: 1px solid black;
@@ -251,7 +259,7 @@
 
     .tabela {
       margin-top: 5%;
-      margin-left: 15%;
+      margin-left: 7%;
 
     }
 
@@ -268,7 +276,7 @@
     .oloco {
       border: 1px solid black;
       height: 50%;
-      width: 50%;
+      width: 70%;
     }
 
     .remover {
@@ -315,183 +323,14 @@
 
     .col-2 {
       border: 1px solid black;
-      border-left: 1px solid white;
       border-bottom: 1px solid white;
     }
 
     .produto {
       border-left: 1px solid black;
     }
-
-    #snackbar {
-      visibility: hidden;
-      /* Hidden by default. Visible on click */
-      min-width: 250px;
-      /* Set a default minimum width */
-      margin-left: -125px;
-      /* Divide value of min-width by 2 */
-      background-color: rgb(34, 206, 214);
-      /* Black background color */
-      color: black(255, 255, 255);
-      /* White text color */
-      text-align: center;
-      /* Centered text */
-      border-radius: 2px;
-      /* Rounded borders */
-      padding: 16px;
-      /* Padding */
-      position: fixed;
-      /* Sit on top of the screen */
-      z-index: 1;
-      /* Add a z-index if needed */
-      left: 50%;
-      /* Center the snackbar */
-      bottom: 30px;
-      /* 30px from the bottom */
-    }
-
-    /* Show the snackbar when clicking on a button (class added with JavaScript) */
-    #snackbar.show {
-      visibility: visible;
-      /* Show the snackbar */
-      /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
-  However, delay the fade out process for 2.5 seconds */
-      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-      animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    }
-
-    /* Animations to fade the snackbar in and out */
-    @-webkit-keyframes fadein {
-      from {
-        bottom: 0;
-        opacity: 0;
-      }
-
-      to {
-        bottom: 30px;
-        opacity: 1;
-      }
-    }
-
-    @keyframes fadein {
-      from {
-        bottom: 0;
-        opacity: 0;
-      }
-
-      to {
-        bottom: 30px;
-        opacity: 1;
-      }
-    }
-
-    @-webkit-keyframes fadeout {
-      from {
-        bottom: 30px;
-        opacity: 1;
-      }
-
-      to {
-        bottom: 0;
-        opacity: 0;
-      }
-    }
-
-    @keyframes fadeout {
-      from {
-        bottom: 30px;
-        opacity: 1;
-      }
-
-      to {
-        bottom: 0;
-        opacity: 0;
-      }
-    }
-    #inserido {
-      visibility: hidden;
-      /* Hidden by default. Visible on click */
-      min-width: 250px;
-      /* Set a default minimum width */
-      margin-left: -125px;
-      /* Divide value of min-width by 2 */
-      background-color: rgb(34, 206, 214);
-      /* Black background color */
-      color: black(255, 255, 255);
-      /* White text color */
-      text-align: center;
-      /* Centered text */
-      border-radius: 2px;
-      /* Rounded borders */
-      padding: 16px;
-      /* Padding */
-      position: fixed;
-      /* Sit on top of the screen */
-      z-index: 1;
-      /* Add a z-index if needed */
-      left: 50%;
-      /* Center the snackbar */
-      bottom: 30px;
-      /* 30px from the bottom */
-    }
-
-    /* Show the snackbar when clicking on a button (class added with JavaScript) */
-    #inserido.show {
-      visibility: visible;
-      /* Show the snackbar */
-      /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
-  However, delay the fade out process for 2.5 seconds */
-      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-      animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    }
-
-    /* Animations to fade the snackbar in and out */
-    @-webkit-keyframes fadein {
-      from {
-        bottom: 0;
-        opacity: 0;
-      }
-
-      to {
-        bottom: 30px;
-        opacity: 1;
-      }
-    }
-
-    @keyframes fadein {
-      from {
-        bottom: 0;
-        opacity: 0;
-      }
-
-      to {
-        bottom: 30px;
-        opacity: 1;
-      }
-    }
-
-    @-webkit-keyframes fadeout {
-      from {
-        bottom: 30px;
-        opacity: 1;
-      }
-
-      to {
-        bottom: 0;
-        opacity: 0;
-      }
-    }
-
-    @keyframes fadeout {
-      from {
-        bottom: 30px;
-        opacity: 1;
-      }
-
-      to {
-        bottom: 0;
-        opacity: 0;
-      }
+    .col-3 {
+      border-top:1px solid black;
     }
   </style>
 </head>
@@ -548,11 +387,11 @@
 
 
       </nav>
-
-      <div class="container-fluid home">
-        <div class='txt' id='txt'>
-          <span>Não existe este produto<span>
+      <div class='titulo'>
+          <span class='text' id='edit'>Nova venda</span>
         </div>
+      <div class="container-fluid">
+
         <div class="insert">
           <div class='alo'>
             <div class="adc">
@@ -568,13 +407,13 @@
         </div>
         <div class='oloco row'>
           <div id='tabela' class='row tabela col-12'>
-            <div class='col-2 produto' id='tabProd'>
+            <div class='col-3 produto' id='tabProd'>
               <span>Produto</span>
             </div>
             <div class='col-2' id='tabQtd'>
               <span>Quantidade</span>
             </div>
-            <div class='col-2' id='tabValor' style='float: right;'>
+            <div class='col-3' id='tabValor' style='float: right;'>
               <span>Valor</span>
             </div>
             <div class='col-2' id='tabDel'>
@@ -613,6 +452,11 @@
   function adicionar() {
     // adicionar o id posto na url pra pegar o prod do banco
     let id = document.getElementById('pesq').value
+    let prod = document.getElementById(id)
+    console.log(prod)
+    if(prod != null) {
+
+    }
     console.log('Getting...');
     let url = 'http://localhost/produto/' + id
     console.log(url)
@@ -625,7 +469,6 @@
       .then(data => {
         console.log(data)
         // if ($("element class or id name").css("property") == "value") {
-        document.getElementById("txt").style.visibility = "hidden";
         if (isNaN(data.valor)) {
           var x = document.getElementById("snackbar");
 
@@ -645,13 +488,13 @@
         let valorTotal = valor * qtd
         var f = valorTotal.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
         tabela.innerHTML += ` <div id='${id}' class='row novoT'>
-          <div  class='col-2 produto'>
-          <span>${data.nome}</span>
+          <div  class='col-3 produto'>
+          <span>${data.nome}</sp  an>
           </div>
               <div  class='col-2'> 
           <span>${qtd}</span>
           </div>
-              <div  class='col-2' style='float: right;'>
+              <div  class='col-3' style='float: right;'>
           <span>${f}</span>
           </div>
               <div  class='col-2'>
@@ -715,6 +558,17 @@
     var objeto = {
       'itens': json
     }
+    console.log(json)
+    json.forEach(element => {
+      let valor =document.getElementById("final").value
+      if (valor.includes('R$')) {
+      valor = valor.replace('R$','')
+      valor = valor.replace('.','')
+      valor = valor.replace(',','.')
+    }
+      excluir(element.produto_id,valor)
+
+    })
     console.log(objeto.itens)
     fetch('http://localhost/postVendaItem', {
       method: 'post',
@@ -731,8 +585,13 @@
     var x = document.getElementById("inserido")
     x.className = "show";
     setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    json = []
+    console.log(json)
   }
   function excluir(id, valor) {
+    console.log(valor)
+    valor = parseFloat(valor)
+    console.log(valor)
     document.getElementById(id).remove()
     total -= valor
     document.getElementById("final").value = total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });

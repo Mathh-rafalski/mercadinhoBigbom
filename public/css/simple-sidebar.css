@@ -63,9 +63,7 @@ body {
   .home {
     text-align: center;
     margin-top: 50px;
-    font-family:Times;
 }
-
 #snackbar {
   visibility: hidden;
   /* Hidden by default. Visible on click */
@@ -92,7 +90,14 @@ body {
   bottom: 30px;
   /* 30px from the bottom */
 }
-
+.text {
+  font-size: 48px;
+  margin-right: 60%;
+  float: left;
+  padding-left: 10px;
+  border-bottom: 1px solid black;
+  width: 100%;
+}
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
 #snackbar.show {
   visibility: visible;
