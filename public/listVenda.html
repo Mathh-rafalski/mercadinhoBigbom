@@ -64,6 +64,28 @@
             float: left;
             width: 100%;
         }
+        .qtd {
+            border: 1px solid black;
+            border-left: 1px solid white;
+            width: 10%;
+        }
+        .valor {
+            border: 1px solid black;
+            border-left: 1px solid white;
+            float: right;
+            text-align: end
+        }
+        .filtro {
+            float: left;
+        }
+        .fi {
+            margin-left: 10px;
+            width: 100%;
+        }
+        .inp {
+            margin-left: 30px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 
@@ -126,14 +148,30 @@
             <div class="container-fluid home">
 
                 <div class='tabela row'>
-                    <div id='id' class='id'>
+
+                    <div id='id' class='id col-1'>
                         <span>ID</span>
                         <br>
                     </div>
-                    <div id='data' class="data">
+                    <div id='data' class="data col-3">
                         <span class='texto'>Data</span>
                         <br>
                     </div>
+                    <div id='qtd' class="qtd col-1">
+                        <span class='texto'>Quantidade</span>
+                        <br>
+                    </div>
+                    <div id='valor' class='valor col-3'>
+                        <span>Valor Total</span>
+                        <br>
+                    </div>
+                    <div id='filtro' class='filtro'>
+                        <span class='fi'>Busca por Data</span>
+                        <br>
+                            <input class='inp form-control'type="text" id="de" name="fname" placeholder="De"><br>
+                            <input class='inp form-control'type="text" id="ate" name="fname" placeholder="Até"><br>
+                            <button class='btn btn-primary' onclick='buscar()'>Buscar</button>
+                        </div>
                 </div>
             </div>
         </div>
@@ -152,9 +190,14 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+   
+
+
         function listaVenda() {
             divId = document.getElementById('id')
             divData = document.getElementById('data')
+            divValor = document.getElementById('valor')
+            divQtd = document.getElementById('qtd')
 
             fetch('http://localhost/getVendas', {
                 method: 'get',
@@ -165,11 +208,47 @@
                 .then(data => {
                     console.log(data)
                     data.forEach(element => {
+                        if (element.data_hora == 'Invalid date') {
+                            console.log('alo');
+                            
+                            return;
+                        }
+                        let valor = element.valor_total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
                         divId.innerHTML += `<span class='info'>${element.id}<span>`
-                        divData.innerHTML += `<span class='info'>${element.data_hora}<span>`    
+                        divData.innerHTML += `<span class='info'>${element.data_hora}<span>`
+                            divValor.innerHTML += `<span class='info'>${valor}<span>`
+                        divQtd.innerHTML += `<span class='info'>${element.quantidade}<span>`        
                     })
                 })
         }
+        function buscar() {
+            let datade = document.getElementById('de').value
+            let dataate = document.getElementById('ate').value
+            let url = datade +'/'+dataate
+            console.log(url);
+            
+            fetch(`http://localhost/vendas/${url}`, {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+        }).then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    data.forEach(element => {
+                        if (element.data_hora == 'Invalid date') {
+                            console.log('alo');
+                            
+                            return;
+                        }
+                        let valor = element.valor_total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+                        divId.innerHTML += `<span class='info'>${element.id}<span>`
+                        divData.innerHTML += `<span class='info'>${element.data_hora}<span>`
+                            divValor.innerHTML += `<span class='info'>${valor}<span>`
+                        divQtd.innerHTML += `<span class='info'>${element.quantidade}<span>`        
+                    })
+                })
+    }
     </script>
 
 </body>

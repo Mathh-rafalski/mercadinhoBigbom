@@ -19,6 +19,32 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
+app.get('/vendas', function (req, res) {
+  
+  
+  let datade = req.query.datade
+  console.log(datade);
+  let dataate = req.query.dataate 
+  datade = moment(datade).format('YYYY-MM-DD')
+  dataate = moment(dataate).format('YYYY-MM-DD')
+  console.log('2 '+dataate)
+  console.log('1 '+datade);
+  
+  connection.query(`select id,quantidade,venda_id,(select data_hora from vendas v where v.id = pv.venda_id and data_hora > ${datade} and data_hora < ${dataate}) as data_hora,valor_total from produto_venda pv order by data_hora desc`,
+  (erro,results,fields) => {
+
+  
+  if (erro) {
+    res.send({erro:'errro'})
+  }
+  results.forEach(element => {
+    console.log(element);
+    
+  })
+  res.json(results)
+})
+})
+
 app.delete('/deletar/:id',function(req,res) {
   let id = req.params.id;
   let sql = `delete from produtos where id = ?`
@@ -73,14 +99,18 @@ app.post("/produto/update",function(req,res) {
       res.json({erro:'salvo'})
   });
 });
+
+// select id,quantidade,venda_id,(select data_hora from vendas v where v.id = venda_id),valor_total from produto_venda pv
 app.get('/getVendas', function (req, res) {
-  connection.query('select id,data_hora from vendas',
+  console.log(req.body.obj);
+  
+  let select = `(select data_hora from vendas v where v.id = venda_id )`
+  connection.query(`select concat('2020/',extract(month from current_date),'/1') as data_de,concat('2020/',extract(month from current_date),'/31') as data_ate,id,quantidade,venda_id,(select data_hora from vendas v where v.id = venda_id and data_hora > data_de and data_hora < data_ate) as data_hora,valor_total from produto_venda pv order by data_hora desc`,
     function (error, results, fields) {
       if (error)
         res.json(error);
       else
         results.forEach(element => {
-          console.log(results)
           element.data_hora = moment(element.data_hora).format('DD/MM/YYYY HH:mm')
         });
         res.json(results);
