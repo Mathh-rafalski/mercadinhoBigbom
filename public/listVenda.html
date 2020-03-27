@@ -38,9 +38,9 @@
         }
 
         .titulo {
-      margin-top: 2%;
-      padding-left: 15px;
-    }
+            margin-top: 2%;
+            padding-left: 15px;
+        }
 
         .id {
             width: 10%;
@@ -60,31 +60,42 @@
         .row {
             margin-top: 8%;
         }
+
         .info {
             float: left;
             width: 100%;
         }
+
         .qtd {
             border: 1px solid black;
             border-left: 1px solid white;
             width: 10%;
         }
+
         .valor {
             border: 1px solid black;
             border-left: 1px solid white;
             float: right;
             text-align: end
         }
+
         .filtro {
             float: left;
         }
+
         .fi {
             margin-left: 10px;
             width: 100%;
         }
+
         .inp {
             margin-left: 30px;
             margin-top: 5px;
+        }
+        .bot {
+            margin-top: 10px;
+    text-align: initial;
+    margin-left: 30px;
         }
     </style>
 </head>
@@ -145,9 +156,9 @@
             <div class="titulo">
                 <span class='text'>Histórico de Vendas</span>
             </div>
-            <div class="container-fluid home">
+            <div class="container-fluid home" id='container'>
 
-                <div class='tabela row'>
+                <div class='tabela row' id='tabela'>
 
                     <div id='id' class='id col-1'>
                         <span>ID</span>
@@ -168,10 +179,12 @@
                     <div id='filtro' class='filtro'>
                         <span class='fi'>Busca por Data</span>
                         <br>
-                            <input class='inp form-control'type="text" id="de" name="fname" placeholder="De"><br>
-                            <input class='inp form-control'type="text" id="ate" name="fname" placeholder="Até"><br>
+                        <input class='inp form-control' type="date" id="de" name="fname" placeholder="Inicial"><br>
+                        <input class='inp form-control' type="date" id="ate" name="birthday" placeholder="Final">
+                        <div class='bot'>
                             <button class='btn btn-primary' onclick='buscar()'>Buscar</button>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -190,7 +203,7 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
-   
+
 
 
         function listaVenda() {
@@ -198,6 +211,7 @@
             divData = document.getElementById('data')
             divValor = document.getElementById('valor')
             divQtd = document.getElementById('qtd')
+            divTabela = document.getElementById('tabela')
 
             fetch('http://localhost/getVendas', {
                 method: 'get',
@@ -210,45 +224,114 @@
                     data.forEach(element => {
                         if (element.data_hora == 'Invalid date') {
                             console.log('alo');
-                            
+
                             return;
                         }
                         let valor = element.valor_total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
                         divId.innerHTML += `<span class='info'>${element.id}<span>`
                         divData.innerHTML += `<span class='info'>${element.data_hora}<span>`
-                            divValor.innerHTML += `<span class='info'>${valor}<span>`
-                        divQtd.innerHTML += `<span class='info'>${element.quantidade}<span>`        
+                        divValor.innerHTML += `<span class='info'>${valor}<span>`
+                        divQtd.innerHTML += `<span class='info'>${element.quantidade}<span>`
                     })
                 })
         }
         function buscar() {
             let datade = document.getElementById('de').value
             let dataate = document.getElementById('ate').value
-            let url = datade +'/'+dataate
+            let url = '?datade=' + datade + '&dataate=' + dataate
             console.log(url);
             
-            fetch(`http://localhost/vendas/${url}`, {
+// localhost/vendas?datade=03-20-2020&dataate=03-31-2020
+            fetch(`http://localhost/vendas${url}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json'
                 }
-        }).then(response => response.json())
+            }).then(response => response.json())
                 .then(data => {
                     console.log(data)
+                    let con = document.getElementById('container')
+                    document.getElementById('tabela').remove()
+                    con.innerHTML =  `
+                <div class='tabela row' id='tabela'>
+
+                    <div id='id' class='id col-1'>
+                        <span>ID</span>
+                        <br>
+                    </div>
+                    <div id='data' class="data col-3">
+                        <span class='texto'>Data</span>
+                        <br>
+                    </div>
+                    <div id='qtd' class="qtd col-1">
+                        <span class='texto'>Quantidade</span>
+                        <br>
+                    </div>
+                    <div id='valor' class='valor col-3'>
+                        <span>Valor Total</span>
+                        <br>
+                    </div>
+                    <div id='filtro' class='filtro'>
+                        <span class='fi'>Busca por Data</span>
+                        <br>
+                        <input class='inp form-control' type="date" id="de" name="fname" placeholder="Inicial"><br>
+                        <input class='inp form-control' type="date" id="ate" name="birthday" placeholder="Final">
+                        <div class='bot'>
+                            <button class='btn btn-primary' onclick='buscar()'>Buscar</button>
+                        </div>
+                    </div>
+                </div> `
+                divId = document.getElementById('id')
+            divData = document.getElementById('data')
+            divValor = document.getElementById('valor')
+            divQtd = document.getElementById('qtd')
+            divTabela = document.getElementById('tabela')
                     data.forEach(element => {
-                        if (element.data_hora == 'Invalid date') {
-                            console.log('alo');
-                            
+                        console.log('alo');
+                            if (element.data_hora == 'Invalid date' || element.valor_total == null) {
+
                             return;
                         }
+                        
+                        
+                        
                         let valor = element.valor_total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
                         divId.innerHTML += `<span class='info'>${element.id}<span>`
                         divData.innerHTML += `<span class='info'>${element.data_hora}<span>`
-                            divValor.innerHTML += `<span class='info'>${valor}<span>`
-                        divQtd.innerHTML += `<span class='info'>${element.quantidade}<span>`        
+                        divValor.innerHTML += `<span class='info'>${valor}<span>`
+                        divQtd.innerHTML += `<span class='info'>${element.quantidade}<span>`
                     })
                 })
-    }
+        }
+
+        /*
+
+                    <div id='id' class='id col-1'>
+                        <span>ID</span>
+                        <br>
+                    </div>
+                    <div id='data' class="data col-3">
+                        <span class='texto'>Data</span>
+                        <br>
+                    </div>
+                    <div id='qtd' class="qtd col-1">
+                        <span class='texto'>Quantidade</span>
+                        <br>
+                    </div>
+                    <div id='valor' class='valor col-3'>
+                        <span>Valor Total</span>
+                        <br>
+                    </div>
+                    <div id='filtro' class='filtro'>
+                        <span class='fi'>Busca por Data</span>
+                        <br>
+                        <input class='inp form-control' type="date" id="de" name="fname" placeholder="Inicial"><br>
+                        <input class='inp form-control' type="date" id="ate" name="birthday" placeholder="Final">
+                        <div class='bot'>
+                            <button class='btn btn-primary' onclick='buscar()'>Buscar</button>
+                        </div>
+                    </div>
+        */
     </script>
 
 </body>

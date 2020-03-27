@@ -44,7 +44,7 @@
 
         .coluna {
             background: #19b7d0;
-            width: 3%;
+            width: 10%;
             margin: 3%;
         }
 
@@ -62,6 +62,9 @@
             padding-right: 50px;
             max-width: 3%;
             overflow: hidden;
+        }
+        .valor {
+            margin-top: 220%;
         }
     </style>
 </head>
@@ -142,6 +145,8 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+        var valorTotal = 0
+        var valorProduto = 0;
         var total = 100;
         function gerarGrafico() {
             div = document.getElementById('row')
@@ -154,37 +159,51 @@
                 },
             }).then(response => response.json())
                 .then(data => {
+                    valorTotal = data[0].total
                     data.forEach(element => {
-                        console.log(element.porcentagem)
+                        console.log(element)
                         let porcentagem = element.porcentagem
                         porcentagem = Math.round(porcentagem)
                         let sla = 100 - porcentagem
                         porcentagem += '%'
                         sla += '%'
+                        valorProduto += element.valor_produto
                         total -= element.porcentagem
-                        div.innerHTML += `<div class='coluna'>
-                            <div class='alo' style='height:${sla}'><div>
+                        let valor = element.valor_produto
+                        valor = valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+                        div.innerHTML += `<div class='coluna' title='Total: ${valor}'>
+                            <div class='alo' style='height:${sla}'>
+                                
                             <div class='bora'>
+                                
                             <span class='oi'>${element.nome}<span><br>
                             <span class='inacreditavel'>${porcentagem}<span>
-                            <div>
-                            
+                            </div>
+                                <div class='valor'>
+                                ${valor}
+                                </div>
                             </div>
                            `
+                           
                     })
+                    let valorOutros = valorTotal - valorProduto
                     let porc = total
                     total = 100 - total
                     porc = Math.round(porc)
                     porc += '%'
                     total += '%'
-                    div.innerHTML += `<div class='coluna'>
+                    valorOutros =  valorOutros.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+                    div.innerHTML += `<div class='coluna' title='Total: ${valorOutros}'>
                             <div class='alo' style='height:${total}'><div>
                             <div class='bora'>
                             <span class='oi'>Outros<span><br>
                             <span class='inacreditavel'>${porc}<span>
                             <div>
-                            
+
                             </div>
+                            <div style='margin-top:-105%; text-align:center;'>
+                                ${valorOutros}
+                                </div>
                            `
                 })
         }
