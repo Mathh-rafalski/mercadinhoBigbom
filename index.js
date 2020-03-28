@@ -19,6 +19,35 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
+app.get('/vendas/mes', function (req, res) {
+  let ano = new Date();
+  ano = ano.getFullYear()
+  console.log(ano);
+  
+  connection.query(`select data_hora,sum(valor_total) as valor_total from vendas v join produto_venda pv on(pv.venda_id = v.id) where extract(year from data_hora) = '${ano}'  group by extract(month from data_hora)`,
+    (erro, results, fields) => {
+      if (erro) {
+        console.log(erro);
+        
+        res.send({ erro: 'errro' })
+      }
+
+      results.forEach(element => {
+        let mes = new Date()
+        mes.get 
+        console.log(element);
+
+        element.data_hora = moment(element.data_hora).format('MMMM')
+
+      })
+      console.log(results);
+
+      res.json(results)
+    })
+})
+
+
+
 app.get('/vendas', function (req, res) {
 
 
@@ -30,13 +59,15 @@ app.get('/vendas', function (req, res) {
   console.log('datede ' + datade);
 
   // connection.query(`select id,quantidade,venda_id,(select data_hora from vendas v where v.id = pv.venda_id and data_hora > ${datade} and data_hora < ${dataate}) as data_hora,valor_total from produto_venda pv order by data_hora desc`,
-  connection.query(` select v.id,data_hora,sum(quantidade) as quantidade,sum(valor_total) as valor_total from vendas v join produto_venda pv on (pv.venda_id = v.id) where data_hora between ${datade} and ${dataate} group by v.id`,
+  connection.query(` select v.id,data_hora,sum(quantidade) as quantidade,sum(valor_total) as valor_total from vendas v join produto_venda pv on (pv.venda_id = v.id) where data_hora between '${datade}' and '${dataate}' group by v.id`,
     (erro, results, fields) => {
 
 
       if (erro) {
         res.send({ erro: 'errro' })
       }
+      console.log(results.length);
+
       results.forEach(element => {
         console.log(element);
 
@@ -247,6 +278,9 @@ app.use('/editProduto/:id', function (req, res) {
   res.send(json)
   */
 
+})
+app.use('/vendas/grafico', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'graphVendas.html'))
 })
 app.use('/topCinco', function (req, res) {
   res.sendFile(path.join(__dirname, 'public', 'produtosVendidos.html'))

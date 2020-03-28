@@ -92,10 +92,11 @@
             margin-left: 30px;
             margin-top: 5px;
         }
+
         .bot {
             margin-top: 10px;
-    text-align: initial;
-    margin-left: 30px;
+            text-align: initial;
+            margin-left: 30px;
         }
     </style>
 </head>
@@ -159,33 +160,35 @@
             <div class="container-fluid home" id='container'>
 
                 <div class='tabela row' id='tabela'>
-
-                    <div id='id' class='id col-1'>
-                        <span>ID</span>
-                        <br>
-                    </div>
-                    <div id='data' class="data col-3">
-                        <span class='texto'>Data</span>
-                        <br>
-                    </div>
-                    <div id='qtd' class="qtd col-1">
-                        <span class='texto'>Quantidade</span>
-                        <br>
-                    </div>
-                    <div id='valor' class='valor col-3'>
-                        <span>Valor Total</span>
-                        <br>
-                    </div>
                     <div id='filtro' class='filtro'>
                         <span class='fi'>Busca por Data</span>
                         <br>
                         <input class='inp form-control' type="date" id="de" name="fname" placeholder="Inicial"><br>
                         <input class='inp form-control' type="date" id="ate" name="birthday" placeholder="Final">
                         <div class='bot'>
-                            <button class='btn btn-primary' onclick='buscar()'>Buscar</button>
+                            <button type='button' class='btn btn-primary' onclick='buscar()'>Buscar</button>
+                        </div>
+                    </div>
+                    <div id='del' class='row col-9' style='margin-top:0%'>
+                        <div id='id' class='id col-2'>
+                            <span>ID</span>
+                            <br>
+                        </div>
+                        <div id='data' class="data col-3">
+                            <span class='texto'>Data</span>
+                            <br>
+                        </div>
+                        <div id='qtd' class="qtd col-2">
+                            <span class='texto'>Quantidade</span>
+                            <br>
+                        </div>
+                        <div id='valor' class='valor col-4'>
+                            <span>Valor Total</span>
+                            <br>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
         <!-- /#page-content-wrapper -->
@@ -240,8 +243,8 @@
             let dataate = document.getElementById('ate').value
             let url = '?datade=' + datade + '&dataate=' + dataate
             console.log(url);
-            
-// localhost/vendas?datade=03-20-2020&dataate=03-31-2020
+
+            // localhost/vendas?datade=03-20-2020&dataate=03-31-2020
             fetch(`http://localhost/vendas${url}`, {
                 method: 'get',
                 headers: {
@@ -250,12 +253,11 @@
             }).then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    let con = document.getElementById('container')
-                    document.getElementById('tabela').remove()
-                    con.innerHTML =  `
-                <div class='tabela row' id='tabela'>
-
-                    <div id='id' class='id col-1'>
+                    let con = document.getElementById('tabela')
+                    document.getElementById('del').remove()
+                    con.innerHTML += `
+                    <div id='del' class='row col-9' style='margin-top:0%'>
+                    <div id='id' class='id col-2'>
                         <span>ID</span>
                         <br>
                     </div>
@@ -263,38 +265,29 @@
                         <span class='texto'>Data</span>
                         <br>
                     </div>
-                    <div id='qtd' class="qtd col-1">
+                    <div id='qtd' class="qtd col-2">
                         <span class='texto'>Quantidade</span>
                         <br>
                     </div>
-                    <div id='valor' class='valor col-3'>
+                    <div id='valor' class='valor col-4'>
                         <span>Valor Total</span>
                         <br>
                     </div>
-                    <div id='filtro' class='filtro'>
-                        <span class='fi'>Busca por Data</span>
-                        <br>
-                        <input class='inp form-control' type="date" id="de" name="fname" placeholder="Inicial"><br>
-                        <input class='inp form-control' type="date" id="ate" name="birthday" placeholder="Final">
-                        <div class='bot'>
-                            <button class='btn btn-primary' onclick='buscar()'>Buscar</button>
-                        </div>
-                    </div>
-                </div> `
-                divId = document.getElementById('id')
-            divData = document.getElementById('data')
-            divValor = document.getElementById('valor')
-            divQtd = document.getElementById('qtd')
-            divTabela = document.getElementById('tabela')
+                </div>
+                 `
+                    divId = document.getElementById('id')
+                    divData = document.getElementById('data')
+                    divValor = document.getElementById('valor')
+                    divQtd = document.getElementById('qtd')
                     data.forEach(element => {
                         console.log('alo');
-                            if (element.data_hora == 'Invalid date' || element.valor_total == null) {
+                        if (element.data_hora == 'Invalid date' || element.valor_total == null) {
 
                             return;
                         }
-                        
-                        
-                        
+
+
+
                         let valor = element.valor_total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
                         divId.innerHTML += `<span class='info'>${element.id}<span>`
                         divData.innerHTML += `<span class='info'>${element.data_hora}<span>`
