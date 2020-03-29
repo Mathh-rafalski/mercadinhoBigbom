@@ -23,18 +23,18 @@ app.get('/vendas/mes', function (req, res) {
   let ano = new Date();
   ano = ano.getFullYear()
   console.log(ano);
-  
+
   connection.query(`select data_hora,sum(valor_total) as valor_total from vendas v join produto_venda pv on(pv.venda_id = v.id) where extract(year from data_hora) = '${ano}'  group by extract(month from data_hora)`,
     (erro, results, fields) => {
       if (erro) {
         console.log(erro);
-        
+
         res.send({ erro: 'errro' })
       }
 
       results.forEach(element => {
         let mes = new Date()
-        mes.get 
+        mes.get
         console.log(element);
 
         element.data_hora = moment(element.data_hora).format('MMMM')
@@ -46,7 +46,16 @@ app.get('/vendas/mes', function (req, res) {
     })
 })
 
-
+app.get('/logar', function (req, res) {
+  let sql = 'select nome,senha from usuarios'
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      console.log(error);
+      return;
+    }
+    res.json(results)
+  })
+})
 
 app.get('/vendas', function (req, res) {
 
@@ -304,12 +313,20 @@ app.use('/listVenda', function (req, res) {
   res.sendFile(path.join(__dirname, 'public', 'listVenda.html'));
   //C:\Users\Matheus\Desktop\an
 });
+app.use('/home', function (req, res) {
+  console.log('ai')
+  res.sendFile(path.join(__dirname, 'public', 'home.html'));
+  //C:\Users\Matheus\Desktop\a
+});
 
 app.use('/', function (req, res) {
   console.log('ai')
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
   //C:\Users\Matheus\Desktop\a
 });
+
+
+
 app.use('/produtos', function (req, res) {
   console.log("açlo");
 
