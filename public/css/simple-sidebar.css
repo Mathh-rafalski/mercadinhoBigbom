@@ -97,6 +97,7 @@ body {
   padding-left: 10px;
   border-bottom: 1px solid black;
   width: 100%;
+  text-align: initial
 }
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
 #snackbar.show {

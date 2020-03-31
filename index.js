@@ -203,13 +203,14 @@ app.post('/produto/inserir', function (req, res) {
   let n = req.body.valor
   let p = req.body.nome
   boolean = true;
+  console.log(n);
   n = validarCampos(n, p, res)
   console.log(boolean);
 
   if (boolean == false) {
     return;
   }
-  console.log('a to');
+  
 
   var sql = "INSERT INTO `produtos` (`nome`,`valor`) VALUES ('" + p + "', '" + n + "')";
   connection.query(sql, function (err, result) {
@@ -243,7 +244,6 @@ function validarCampos(n, p, res) {
   n = n.replace('R$', "")
   n = n.replace('.', '')
   n = n.replace(',', '.')
-  n = parseFloat(n).toFixed(1)
   return n;
 }
 /*

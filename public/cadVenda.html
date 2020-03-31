@@ -332,6 +332,10 @@
     .col-3 {
       border-top:1px solid black;
     }
+    .tabDel {
+      border-right: 1px solid black;
+      border-left: 1px solid black;
+    }
   </style>
 </head>
 
@@ -348,30 +352,33 @@
         <img src="rato.png" alt="homem" width="200" height="180">
       </div>
       <div class="list-group list-group-flush itens">
-        <div class="dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Vendas
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/cadVenda">Nova venda</a>
-            <a class="dropdown-item" href="/listVenda">Lista Venda</a>
-          </div>
+          <div class="dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Vendas
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/cadVenda">Nova venda</a>
+          <a class="dropdown-item" href="/listVenda">Histórico</a>
+          <a class="dropdown-item" href="/vendas/grafico">Gráfico Venda</a>
+        
         </div>
+      </div>
 
         <!-- Mudar o id da navbra-->
-        <div class="dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarProduto" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Produtos
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarProduto">
-            <a class="dropdown-item" href="/cadProduto">Novo Produto</a>
-            <a class="dropdown-item" href="/listProduto">Lista Produto</a>
-          </div>
+    <div class="dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarProduto" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Produtos
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarProduto">
+          <a class="dropdown-item" href="/cadProduto">Novo Produto</a>
+          <a class="dropdown-item" href="/listProduto">Histórico</a>
+          <a class='dropdown-item' href="/hori">Gráfico Produtos</a>
         </div>
       </div>
     </div>
+  </div>
     <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
@@ -416,7 +423,7 @@
             <div class='col-3' id='tabValor' style='float: right;'>
               <span>Valor</span>
             </div>
-            <div class='col-2' id='tabDel'>
+            <div class='col-3 tabDel' id='tabDel'>
               <span>Remover</span>
             </div>
           </div>
@@ -453,10 +460,56 @@
     // adicionar o id posto na url pra pegar o prod do banco
     let id = document.getElementById('pesq').value
     let prod = document.getElementById(id)
+    let qtd = document.getElementById('qtd').value
     console.log(prod)
     if(prod != null) {
-
+      let quant = 0;
+      for(let i = 0;i < json.length;i++) {
+        if(json[i].produto_id == id) {
+        quant = json[i].quantidade
+        console.log(quant);
+        json[i].quantidade = parseFloat(json[i].quantidade) + parseFloat(qtd) 
+        console.log(json[i].quantidade);
+        
+        }
+      }
+      
+      
+      let div = prod.children[1]
+      let valor = $(prod.children[2]).find('.val').html()
+      valor = valor.replace('R$',"")
+      valor = valor.replace('&nbsp;','')
+      valor = valor.replace('.','')
+      valor = valor.replace(',','.')
+      console.log(valor);
+      
+      let divDel = prod.children[3]
+      console.log(div.children[0].text);
+      console.log(div.children[0]);
+      let valorAnt = valor * quant
+      let valorDep = valor * qtd
+      valorDep = parseFloat(valorDep) + parseFloat(valorAnt)
+      
+      quant = parseFloat(quant) + parseFloat(qtd)
+      divDel.children[0].setAttribute('onClick',`excluir(${id},${valor},${quant})`)
+      valor = valor*quant
+      div.children[0].innerHTML = quant
+      let inp = document.getElementById("final")
+      total = parseFloat(total) - parseFloat(valorAnt)
+      total = parseFloat(total) + parseFloat(valorDep)
+      
+      console.log(divDel.children[0]);
+      
+      
+      inp.value = total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+      return;
     }
+    /*
+var el = document.getElementById('elem');
+
+alert(el.parentElement.id);
+alert(el.children[0].id);
+    */
     console.log('Getting...');
     let url = 'http://localhost/produto/' + id
     console.log(url)
@@ -483,22 +536,22 @@
         console.log('ignorado')
         let produto = data.nome
         let tabela = document.getElementById('tabela')
-        let qtd = document.getElementById('qtd').value
+        
         let valor = data.valor
-        let valorTotal = valor * qtd
+        let valorTotal = valor
         var f = valorTotal.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-        tabela.innerHTML += ` <div id='${id}' class='row novoT'>
+        tabela.innerHTML += ` <div id='${id}' class='row novoT ${id}'>
           <div  class='col-3 produto'>
           <span>${data.nome}</sp  an>
           </div>
               <div  class='col-2'> 
-          <span>${qtd}</span>
+          <span class='ktd'>${qtd}</span>
           </div>
               <div  class='col-3' style='float: right;'>
-          <span>${f}</span>
+          <span class='val'>${f}</span>
           </div>
-              <div  class='col-2'>
-          <a class='botao'type='button'onclick='excluir(${id},${valorTotal})'>Deletar<a>
+              <div  class='col-3 tabDel'>
+          <a class='botao'type='button'onclick='excluir(${id},${valorTotal},${qtd})'>Deletar<a>
               </div>
         </div>`
 
@@ -509,7 +562,7 @@
           <span class="texto val">${f}<span>
             </div>`*/
         let inp = document.getElementById("final")
-        total += parseFloat(valorTotal)
+        total += parseFloat(valorTotal * qtd)
 
         inp.value = total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
         let obj = {
@@ -524,6 +577,8 @@
         }
         test.push(teste)
         json.push(obj)
+        console.log(json);
+        
 
       });
   }
@@ -559,16 +614,22 @@
       'itens': json
     }
     console.log(json)
+    let j = 0
+    let valor = 0
     json.forEach(element => {
-      let valor =document.getElementById("final").value
+      valor =document.getElementById("final").value
       if (valor.includes('R$')) {
       valor = valor.replace('R$','')
       valor = valor.replace('.','')
       valor = valor.replace(',','.')
+      
     }
-      excluir(element.produto_id,valor)
-
+    document.getElementById(element.produto_id).remove()
     })
+    total -= valor
+    document.getElementById("final").value = total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+    console.log(j);
+    
     console.log(objeto.itens)
     fetch('http://localhost/postVendaItem', {
       method: 'post',
@@ -588,10 +649,14 @@
     json = []
     console.log(json)
   }
-  function excluir(id, valor) {
-    console.log(valor)
-    valor = parseFloat(valor)
-    console.log(valor)
+  function excluir(id, valor,qtd) {
+    console.log(json)
+    for(let i = 0;i < json.length;i++) {
+      if(json[i].produto_id == id) {
+        json.splice(i,1)
+      }
+    }
+    valor = parseFloat(valor * qtd)
     document.getElementById(id).remove()
     total -= valor
     document.getElementById("final").value = total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
