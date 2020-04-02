@@ -6,6 +6,7 @@ const path = require('path')
 const app = express()
 const mysql = require('mysql')
 const moment = require('moment')
+const heroku = require('heroku')
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -326,5 +327,5 @@ app.use('/produtos', function (req, res) {
 
 
 
-
-var server = app.listen(80)
+var porta = process.env.PORT || 80;
+app.listen(porta)
