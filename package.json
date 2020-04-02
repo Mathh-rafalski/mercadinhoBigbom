@@ -8,7 +8,7 @@
     "scripts": {
         "start": "nodemon start index.js"
     },
-	,
+	
 
     "description": "A simple sidbar navigation HTMl template built with Bootstrap",
     "keywords": [
