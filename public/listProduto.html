@@ -8,13 +8,14 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Simple Sidebar - Start Bootstrap Template</title>
+  <title>Histórico de Produtos</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
     .border-right {
       border-right: 1px solid black !important
@@ -41,7 +42,7 @@
     }
 
     .bt {
-      width: 8%;
+      width: 5%;
       border: 1px solid black;
       border-left: 1px solid white;
       float: left;
@@ -112,6 +113,13 @@
       margin-top: 2%;
       padding-left: 15px;
     }
+
+    .fa-remove:hover {
+      color: red;
+    }
+    .fa-edit:hover {
+      color:#19b7d0
+    }
   </style>
 </head>
 
@@ -153,6 +161,7 @@
           <a class="dropdown-item" href="/listProduto">Histórico</a>
           <a class='dropdown-item' href="/hori">Gráfico Produtos</a>
         </div>
+        <a type='button' class='dropdown-item logout'  href='/'>Logout</a>
       </div>
     </div>
   </div>
@@ -196,7 +205,7 @@
           </div>
         </div>
       <!-- /#page-content-wrapper -->
-
+      <div id="snackbar" class='snackbar'>Deletado</div>
     </div>
     <!-- /#wrapper -->
 
@@ -220,7 +229,11 @@
         let divDel = document.getElementById('del')
         let divEdit = document.getElementById('edit')
         console.log('Getting...');
-
+        if (window.location.hash == '#reload') {
+          var x = document.getElementById("snackbar");
+          x.className = "show";
+          setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        }
         fetch('http://localhost/getProdutos', {
           method: 'get',
           headers: {
@@ -238,9 +251,10 @@
               divId.innerHTML += `<br><span class="texto" style='margin-left:0%; width:100%'>${id}<span>`
               divNome.innerHTML += `<br><span class="texto">${nome}<span>`
               divValor.innerHTML += `<br><span class="texto val">${f}<span>`
-              divEdit.innerHTML += `<br><a type='button' href='/cadProduto/${id}'>edit<a>`
+              divEdit.innerHTML += `<br><a type='button' href='/cadProduto/${id}'><i class='fas fa-edit'></i></a>`
+              //divEdit.innerHTML += `<br><a type='button' href='/cadProduto/${id}'>Editar<a>`
                 console.log(id)
-              divDel.innerHTML += `<br><a type='button' onclick="excluir(${id})" >del</a>`
+              divDel.innerHTML += `<br><a type='button' onclick="excluir(${id})" ><i class="fa fa-remove"></i></a>`
               
               /*
 <div class='bt'>
@@ -281,7 +295,10 @@
           div.innerHTML += `<span class='texto' style='float:right;font-size:24px;padding-top:20px;'>Erro ao deletar</span>`
           }
         } else {
-          alert('deletado')
+          var x = document.getElementById("snackbar");
+          x.className = "show";
+          setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+          window.location.hash = 'reload';
           window.location.reload()
         }
       })

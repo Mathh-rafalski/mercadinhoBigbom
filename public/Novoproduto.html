@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Simple Sidebar - Start Bootstrap Template</title>
+  <title>Novo Produto</title>
 
   <!-- Bootstrap core CSS -->
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -31,6 +31,7 @@
     #btn:hover {
       background-color: #17a2b8;
       border-color: black;
+      color: white;
     }
 
     .tarefa {
@@ -130,7 +131,7 @@
         <a href="/home">Menu</a>
       </div>
       <div class="image">
-        <img src="rato.png" alt="homem" width="200" height="180">
+        <img src="/rato.png" alt="homem" width="200" height="180">
       </div>
       <div class="list-group list-group-flush itens">
           <div class="dropdown">
@@ -157,6 +158,7 @@
           <a class="dropdown-item" href="/listProduto">Histórico</a>
           <a class='dropdown-item' href="/hori">Gráfico Produtos</a>
         </div>
+        <a type='button' class='dropdown-item logout'  href='/'>Logout</a>
       </div>
     </div>
   </div>
@@ -180,7 +182,7 @@
           <span class='text' id='edit'>Novo produto</span>
         </div>
         <div class="tarefa container clearfix" id='alo'>
-          <form class="form" id="formulario">
+          <form class="form" id="formulario" autocomplete="off">
             <label class="lbl" for="fname">Nome</label><br>
             <input type="text" id="desc" name="fname" placeholder="Pastel"><br>
             <label class="lbl" for="lname">Valor</label><br>
@@ -229,6 +231,8 @@
       if (valor.includes(",")) {
         valor = valor.replace(",", ".")
       }*/
+      document.getElementById('desc').value = ''
+      document.getElementById('money').value = ''
       var id = window.location.href.split('/')
       if (!isNaN(id[4])) {
 
@@ -246,6 +250,7 @@
           "nome": nome,
           "valor": valor
         }
+        console.log('aaa');
 
         enviarPoServer(produto)
         console.log(produto)

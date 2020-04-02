@@ -20,9 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
 app.get('/vendas/mes', function (req, res) {
-  let ano = new Date();
-  ano = ano.getFullYear()
-  console.log(ano);
+  let ano = req.query.ano
 
   connection.query(`select data_hora,sum(valor_total) as valor_total from vendas v join produto_venda pv on(pv.venda_id = v.id) where extract(year from data_hora) = '${ano}'  group by extract(month from data_hora)`,
     (erro, results, fields) => {
@@ -62,20 +60,21 @@ app.get('/vendas', function (req, res) {
 
   let datade = req.query.datade
   let dataate = req.query.dataate
+  let ano  = new Date()
+  ano = ano.getFullYear()
   datade = moment(datade).format('YYYY-MM-DD')
   dataate = moment(dataate).format('YYYY-MM-DD')
   console.log('dataate ' + dataate)
   console.log('datede ' + datade);
 
   // connection.query(`select id,quantidade,venda_id,(select data_hora from vendas v where v.id = pv.venda_id and data_hora > ${datade} and data_hora < ${dataate}) as data_hora,valor_total from produto_venda pv order by data_hora desc`,
-  connection.query(` select v.id,data_hora,sum(quantidade) as quantidade,sum(valor_total) as valor_total from vendas v join produto_venda pv on (pv.venda_id = v.id) where data_hora between '${datade}' and '${dataate}' group by v.id`,
+  connection.query(` select v.id,data_hora,sum(quantidade) as quantidade,sum(valor_total) as valor_total from vendas v join produto_venda pv on (pv.venda_id = v.id) where extract(year from data_hora) = '${ano}' and data_hora between '${datade}' and '${dataate}' group by v.id`,
     (erro, results, fields) => {
 
 
       if (erro) {
         res.send({ erro: 'errro' })
       }
-      console.log(results.length);
 
       results.forEach(element => {
         console.log(element);
@@ -231,15 +230,6 @@ function validarCampos(n, p, res) {
     boolean = false
     res.status(500).send({ erro: 'Nome não pode ser nulo' })
     return;
-  }
-  let s = p.split('')
-  for (let i = 0; i < s.length; i++) {
-    if (!isNaN(s[i])) {
-      console.log('o')
-      boolean = false
-      res.status(500).send({ erro: 'Não pode conter números no nome ' })
-      return;
-    }
   }
   n = n.replace('R$', "")
   n = n.replace('.', '')
