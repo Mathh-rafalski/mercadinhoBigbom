@@ -1,9 +1,10 @@
 {
     "title": "Simple Sidebar",
     "name": "startbootstrap-simple-sidebar",
-    "version": "6.x",
+    "version": "5.1.1",
     "engines": {
     "node": "12.13.x"
+    "npm":"6.x"
     },
     "scripts": {
         "start": "nodemon start index.js"
