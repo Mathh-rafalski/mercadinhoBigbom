@@ -213,7 +213,7 @@
   </script>
   <!-- Menu Toggle Script -->
   <script>
-
+    var rota = 'https://mercadinhobigbom.herokuapp.com/'
     function enviar() {
       console.log('ao')
       let nome = document.getElementById('desc').value
@@ -258,7 +258,7 @@
     }
     function enviarPoServer(jsonObj) {
       console.log('Posting...');
-      fetch('http://localhost/produto/inserir', {
+      fetch('https://mercadinhobigbom.herokuapp.com/produto/inserir', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -295,7 +295,7 @@
         // verificou se ta editando ou criando novo produto, aqui esta editando
         let url = 'localhost/produto/' + id[4]
         console.log(url)
-        fetch('http://localhost/produto/' + id[4], {
+        fetch('https://mercadinhobigbom.herokuapp.com/produto/' + id[4], {
           method: 'get',
           headers: {
             'Content-Type': 'application/json'

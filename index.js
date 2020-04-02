@@ -44,8 +44,10 @@ app.get('/vendas/mes', function (req, res) {
       res.json(results)
     })
 })
-
+var rota = 'mercadinhobigbom.herokuapp.com'
 app.get('/logar', function (req, res) {
+  console.log('alo');
+  
   let sql = 'select nome,senha from usuarios'
   connection.query(sql, (error, results, fields) => {
     if (error) {
@@ -56,7 +58,7 @@ app.get('/logar', function (req, res) {
   })
 })
 
-app.get('/vendas', function (req, res) {
+app.get(rota+'/vendas', function (req, res) {
 
 
   let datade = req.query.datade
