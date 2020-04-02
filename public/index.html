@@ -108,7 +108,7 @@
         let user = document.getElementById('user').value
         let senha = document.getElementById('senha').value
         var boolean = true
-        fetch('http://localhost/logar', {
+        fetch('https://mercadinhobigbom.herokuapp.com/logar', {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json'
@@ -118,7 +118,7 @@
                 data.forEach(element => {
                     if (element.nome == user && element.senha == senha) {
                         console.log('alo');
-                        window.location.href = 'http://localhost/home'
+                        window.location.href = 'https://mercadinhobigbom.herokuapp.com/home'
                     } else {
                         boolean = false;
                     }
