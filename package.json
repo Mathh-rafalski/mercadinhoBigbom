@@ -1,7 +1,7 @@
 {
     "title": "Simple Sidebar",
     "name": "startbootstrap-simple-sidebar",
-    "version": "5.1.1",
+    "version": "6.x",
     "engines": {
     "node": "12.13.x"
     },
