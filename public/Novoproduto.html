@@ -258,7 +258,7 @@
     }
     function enviarPoServer(jsonObj) {
       console.log('Posting...');
-      fetch('https://mercadinhobigbom.herokuapp.com/produto/inserir', {
+      fetch('/produto/inserir', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -295,7 +295,7 @@
         // verificou se ta editando ou criando novo produto, aqui esta editando
         let url = 'localhost/produto/' + id[4]
         console.log(url)
-        fetch('https://mercadinhobigbom.herokuapp.com/produto/' + id[4], {
+        fetch('/produto/' + id[4], {
           method: 'get',
           headers: {
             'Content-Type': 'application/json'
@@ -312,7 +312,7 @@
     }
     function editar(produto) {
       console.log('alo')
-      fetch("http://localhost/produto/update", {
+      fetch("/produto/update", {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
