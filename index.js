@@ -31,7 +31,7 @@ connection.connect(function(erro){
 app.get('/vendas/mes', function (req, res) {
   let ano = req.query.ano
 
-  connection.query(`select extract(month from data_hora) as data_hora,sum(valor_total) as valor_total from vendas v join produto_venda pv on(pv.venda_id = v.id) where extract(year from data_hora) = '${ano}'  group by extract(month from data_hora)`,
+  connection.query(`select extract(month from data_hora) as data_hora,sum(valor_total) as valor_total from vendas v join produto_venda pv on(pv.venda_id = v.id) where extract(year from data_hora) = '${ano}'  group by extract(month from data_hora) order by extract(month from data_hora) asc`,
     (erro, results, fields) => {
       if (erro) {
         console.log(erro);
