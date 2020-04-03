@@ -114,7 +114,10 @@
                 'Content-Type': 'application/json'
             },
         }).then(response => response.json())
+        
             .then(data => {
+                console.log(data);
+                
                 data.forEach(element => {
                     if (element.nome == user && element.senha == senha) {
                         console.log('alo');
