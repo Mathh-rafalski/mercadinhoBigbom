@@ -220,7 +220,7 @@
             divQtd = document.getElementById('qtd')
             divTabela = document.getElementById('tabela')
 
-            fetch('http://localhost/getVendas', {
+            fetch('/getVendas', {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json'
@@ -249,7 +249,7 @@
             console.log(url);
 
             // localhost/vendas?datade=03-20-2020&dataate=03-31-2020
-            fetch(`http://localhost/vendas${url}`, {
+            fetch(`/vendas${url}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json'

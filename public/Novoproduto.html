@@ -293,7 +293,7 @@
         $("#edit").html("Editar Produto");
         console.log('ou')
         // verificou se ta editando ou criando novo produto, aqui esta editando
-        let url = 'localhost/produto/' + id[4]
+        let url = '/produto/' + id[4]
         console.log(url)
         fetch('/produto/' + id[4], {
           method: 'get',

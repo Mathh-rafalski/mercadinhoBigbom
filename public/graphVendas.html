@@ -172,7 +172,7 @@
 
             ano = document.getElementById('ano').value
 
-            fetch(`http://localhost/vendas/mes?ano=${ano}`, {
+            fetch(`/vendas/mes?ano=${ano}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json'

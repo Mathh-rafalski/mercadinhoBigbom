@@ -234,7 +234,7 @@
           x.className = "show";
           setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         }
-        fetch('http://localhost/getProdutos', {
+        fetch('/getProdutos', {
           method: 'get',
           headers: {
             'Content-Type': 'application/json'
@@ -280,7 +280,7 @@
       
       function excluir(id) {
         console.log('alo')
-        let url = 'http://localhost/deletar' + '/'+id
+        let url = '/deletar' + '/'+id
         fetch(url, {
           method: 'delete',
           headers: {
