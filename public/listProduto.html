@@ -206,6 +206,7 @@
         </div>
       <!-- /#page-content-wrapper -->
       <div id="snackbar" class='snackbar'>Deletado</div>
+      <div id="inserido" class='snackbar'><span id='err'>Produto não pode ser deletado por estar cadastrado em uma venda</span></div>
     </div>
     <!-- /#wrapper -->
 
@@ -288,12 +289,9 @@
           }
       }).then(response =>{
         if(response.status == 500) {
-          
-          div = document.getElementById('titu')
-          if (o != 1) {
-            o = 1;
-          div.innerHTML += `<span class='texto' style='float:right;font-size:24px;padding-top:20px;'>Erro ao deletar</span>`
-          }
+          var x = document.getElementById("inserido");
+          x.className = "show";
+          setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         } else {
           var x = document.getElementById("snackbar");
           x.className = "show";
