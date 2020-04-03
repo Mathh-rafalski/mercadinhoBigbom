@@ -218,6 +218,8 @@ app.post('/produto/inserir', function (req, res) {
   console.log(n);
   n = validarCampos(n, p, res)
   console.log(boolean);
+  console.log(n);
+  
 
   if (boolean == false) {
     return;
@@ -245,7 +247,7 @@ function validarCampos(n, p, res) {
     return;
   }
   n = n.replace('R$', "")
-  n = n.replace('.', '')
+  n = n.split('.').join('')
   n = n.replace(',', '.')
   return n;
 }
