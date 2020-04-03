@@ -180,6 +180,8 @@
             }).then(response => response.json())
                 .then(data => {
                     data.forEach(element => {
+                        console.log(element);
+                        
                         var f = element.valor_total
                         let array = [element.data_hora, parseFloat(f)]
                         dados.push(array)

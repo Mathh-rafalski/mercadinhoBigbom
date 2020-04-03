@@ -20,10 +20,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
+connection.connect(function(erro){
+  if(erro) {
+    console.log(erro);
+    return;
+  }
+  console.log('Banco conectado');
+  
+})
 app.get('/vendas/mes', function (req, res) {
   let ano = req.query.ano
 
-  connection.query(`select data_hora,sum(valor_total) as valor_total from vendas v join produto_venda pv on(pv.venda_id = v.id) where extract(year from data_hora) = '${ano}'  group by extract(month from data_hora)`,
+  connection.query(`select extract(month from data_hora) as data_hora,sum(valor_total) as valor_total from vendas v join produto_venda pv on(pv.venda_id = v.id) where extract(year from data_hora) = '${ano}'  group by extract(month from data_hora)`,
     (erro, results, fields) => {
       if (erro) {
         console.log(erro);
@@ -35,8 +43,10 @@ app.get('/vendas/mes', function (req, res) {
         let mes = new Date()
         mes.get
         console.log(element);
-
-        element.data_hora = moment(element.data_hora).format('MMMM')
+        element.data_hora--
+        console.log(element);
+        
+        element.data_hora = moment().month(element.data_hora).format("MMMM");
 
       })
       console.log(results);
@@ -109,7 +119,7 @@ group by nome;
 
 */
 app.get('/graph', function (req, res) {
-  let sql = "select nome,(select sum(quantidade) from produto_venda pv where p.id = pv.produto_id)*100/(select sum(quantidade) from produto_venda) as porcentagem,(select sum(valor_total) from produto_venda) as total,(select sum(valor_total) from produto_venda where p.id = produto_id) as valor_produto from produto_venda pv2 join produtos p on (p.id = pv2.produto_id) group by nome order by porcentagem desc limit 5"
+  let sql = "select nome,(sum(quantidade)*100/(select sum(quantidade) from produto_venda)) as porcentagem,sum(valor_total) as valor_produto,(select sum(valor_total) from produto_venda) as total from produto_venda pv2 join produtos p on (p.id = pv2.produto_id)where p.id = pv2.produto_id group by nome order by porcentagem desc limit 5"
   connection.query(sql, function (error, results, fields) {
     if (error) {
       console.log(error)
