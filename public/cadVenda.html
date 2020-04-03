@@ -414,10 +414,10 @@
         <div class="insert">
           <div class='alo'>
             <div class="adc">
-              <input type="number" class="pesq" id="pesq" name="pesq" placeholder="ID" min='1' max='99999'><br>
+              <input type="number" class="pesq" id="pesq" name="pesq" placeholder="ID" min='1' max='1000'><br>
             </div>
             <div class="qtd">
-              <input type="number" class="quant" id='qtd' name="qtd" placeholder="Quantidade" min='1' max='99999'><br>
+              <input type="number" class="quant" id='qtd' name="qtd" placeholder="Quantidade" min='1' max='1000' maxlength="4" onfocusout='format()'><br>
             </div>
             <div class="bot">
               <button type="button" class="btn btn-default btn-sm" onclick="adicionar()">ADD</button>
@@ -689,6 +689,24 @@ alert(el.children[0].id);
     document.getElementById("final").value = total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 
   }
+  function format() {
+    console.log('alo');
+    
+    var value = document.getElementById('qtd').value
+
+    if (value.length <= 3) {
+        return;
+    }
+    value =  value.substring(0,4)
+
+    document.getElementById('qtd').value = value
+    let y = document.getElementById('span')
+    var x = document.getElementById("erro");
+    y.innerHTML = 'Quantidade excedeu o limite dígitos'
+    x.className = "show";
+    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+}
+    
 
 
 
