@@ -9,11 +9,11 @@ const moment = require('moment')
 const heroku = require('heroku')
 
 const connection = mysql.createConnection({
-  host: 'localhost',
+  host: 'remotemysql.com',
   port: 3306,
-  user: 'root',
-  password: '',
-  database: 'banquito'
+  user: 'K3icm977aU',
+  password: 'pOWldSydAu',
+  database: 'K3icm977aU'
 })
 app.use(cors());
 app.use(bodyParser.json());
@@ -58,7 +58,7 @@ app.get('/logar', function (req, res) {
   })
 })
 
-app.get(rota+'/vendas', function (req, res) {
+app.get('/vendas', function (req, res) {
 
 
   let datade = req.query.datade
