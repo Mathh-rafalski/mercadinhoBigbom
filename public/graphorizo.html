@@ -52,17 +52,6 @@
         .alo {
             background: white
         }
-
-        .oi {
-            position: absolute;
-            top: 625px;
-            margin-left: 50px;
-        }
-
-        .inacreditaval {
-            position: absolute;
-        }
-
         .bora {
             padding-right: 50px;
             max-width: 3%;
@@ -76,6 +65,11 @@
         }
         .text {
             border-bottom: 1px solid white;
+        }
+        .outra {
+            position: absolute;
+            top:600px;
+            right: 180px;;
         }
     </style>
 </head>
@@ -187,16 +181,18 @@
                         total -= element.porcentagem
                         let valor = element.valor_produto
                         valor = valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-                        div.innerHTML += `<div class='coluna' title='Total: ${valor}'>
+                        div.innerHTML += ` 
+                        <div class='coluna' title='Total: ${valor}'>
                             <div class='alo' style='height:${sla}'>
                                 
-                            <div class='bora'>
-                                <span class='oi'>${element.nome}<span><br>
-                                <span class='inacreditavel'>${porcentagem}<span>
-                            </div>
+
                             </div>
                                 <div class='valor'>
                                 ${valor}
+                                </div>
+                                <div class='tenta'>
+                                    <span class='oi'>${element.nome}<span><br>
+                                <span class='inacreditavel'>${porcentagem}<span>
                                 </div>
                             </div>
                            `
@@ -210,17 +206,17 @@
                     total += '%'
                     valorOutros = valorOutros.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
                     div.innerHTML += `<div class='coluna' title='Total: ${valorOutros}'>
-                            <div class='alo' style='height:${total}'><div>
-                            <div class='bora'>
+                            <div class='alo' style='height:${total}'></div>
+                                </div>
+                                
+                            <div class='outra'>
+                                ${valorOutros} <br>
                             <span class='oi'>Outros<span><br>
                             <span class='inacreditavel'>${porc}<span>
                             <div>
-
+                                
                             </div>
-                            <div text-align:center;
-}'>
-                                ${valorOutros}
-                                </div>
+  
                            `
                 })
         }
